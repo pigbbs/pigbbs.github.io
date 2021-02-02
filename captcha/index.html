@@ -10,7 +10,7 @@
 <span id=c></span>
 <script>
 setInterval(function(){
-   document.getElementById("c").innerHTML = sessionStorage.getItem("captcha");
+   document.getElementById("c").innerHTML = sessionStorage.getItem("captchastr");
 },1000);
 newcaptcha("captchacanvas");
 function submitcaptcha()
