@@ -14,6 +14,7 @@ function newcaptcha(canvasid)
    canvas.height = "50px";
    canvas.width = "200px";
    sessionStorage.setItem("captcha",str);
+   alert(str);
    ctx.fillStyle="#ff0000";
    ctx.font = "40px Arial";
    ctx.fillText(str,0,0);
