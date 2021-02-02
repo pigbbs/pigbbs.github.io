@@ -21,7 +21,10 @@ function checkcaptcha(textid)
 {
     var txt = document.getElementById(textid).value;
     if (txt == sessionStorage.getItem("captcha"))
+    {
+      sessionStorage.setItem("captcha","captcha");
       return true;
+    }
     else
       return false;
 }
