@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<title>验证码</title>
+<script src=/js/captcha.js></script>
+<meta keyboard="验证码">
+<center><pre style="font-family:Cursive,Helvetica,sans-serif;white-space:pre-wrap">
+请填写正确的验证码以证明你是个人类
+<canvas id=captchacanvas>Not support this element:"canvas".Please change a browser.</canvas>
+<a href=# onclick=javascript:newcaptcha("captchacanvas");>双目失明？更换验证码</a>
+<input type=text id=txt placeholder=验证码><input type=button value=提交 onclick=javascript:submitcaptcha();>
+<script>
+newcaptcha("captchacanvas");
+function submitcaptcha()
+{
+   var result = checkcaptcha("txt");
+   if (result)
+   {
+        var url = location.hash;
+        if (url == null || typeof url == "undefined" || url == "" || url == "#")
+          location.href = "/";
+        else
+          location.href = url.substring(1);
+    } else {
+         alert("验证码错误！");
+         newcaptcha("captchacanvas");
+    }
+}
+</script>
