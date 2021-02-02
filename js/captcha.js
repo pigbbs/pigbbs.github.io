@@ -13,7 +13,7 @@ function newcaptcha(canvasid)
    var canvas = document.getElementById(canvasid);
    canvas.height = "50px";
    canvas.width = "200px";
-   sessionStorage.setItem("captcha",str);
+   sessionStorage.setItem("captchastr",str);
    alert(str);
    ctx.fillStyle="#ff0000";
    ctx.font = "40px Arial";
@@ -23,7 +23,7 @@ function newcaptcha(canvasid)
 function checkcaptcha(textid)
 {
     var txt = document.getElementById(textid).value;
-    if (txt == sessionStorage.getItem("captcha"))
+    if (txt == sessionStorage.getItem("captchastr"))
     {
       sessionStorage.setItem("captcha","captcha");
       return true;
