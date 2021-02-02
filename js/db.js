@@ -3,4 +3,11 @@ if (typeof Bmob == "undefined")
 var db = {};
 db.readdata = function (objid,usecache)
 {
+    if (usecache)
+    {
+       var obj = {};
+       var content = sessionStorage.getItem("cache-" + objid);
+       if (content == null)
+       {}
+    }
 };
