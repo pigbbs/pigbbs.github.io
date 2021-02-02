@@ -37,9 +37,11 @@ db.savedata = function(objid,dat) {
    query.save(res => {
         obj.status = 200;
         obj.result = res;
+        return obj;
    }).catch(err => {
        obj.status = 400;
        obj.result = err;
+       return obj;
    });   
 };
 db.newbbs = function () {
@@ -49,8 +51,11 @@ db.newbbs = function () {
      query.save(res => {
           obj.status = 200;
           obj.result = res;
+          return obj;
      }).catch(err => {
           obj.status = 400;
           obj.result = err;
+          return obj;
      });
+     
 };
