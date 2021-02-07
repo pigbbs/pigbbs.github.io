@@ -51,9 +51,9 @@ db.newbbs = function () {
     var q = Bmob.Query("userinfo");
     q.get(uuid).then(res => {
       console.log(res);
-      q.set("id",res.result.objectId);
-      q.set("BBSnum",parseInt(res.result.BBSnum)+1);
-      if (res.result.BBSnum > 2)
+      q.set("id",res.objectId);
+      q.set("BBSnum",parseInt(res.BBSnum)+1);
+      if (res.BBSnum > 2)
         alert("错误！您的账户创建的留言板已达上限");
       else
       {
