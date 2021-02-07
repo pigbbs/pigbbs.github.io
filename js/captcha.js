@@ -11,11 +11,10 @@ function newcaptcha(canvasid)
    }
    var ctx = document.getElementById(canvasid).getContext("2d");
    var canvas = document.getElementById(canvasid);
-   canvas.height = "50px";
-   canvas.width = "200px";
    sessionStorage.setItem("captchastr",str);
-   alert(str);
+  // alert(str);
    ctx.fillStyle="#ff0000";
+   ctx.fillRect(0,0,200,50);
    ctx.font = "40px Arial";
    ctx.fillText(str,0,0);
    } catch (err) { alert(err); }
