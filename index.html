@@ -17,6 +17,7 @@ function gobbs()
 }
 function newbbs()
 {
+   db.newbbs();
    var s = setTimeout(function(){
       alert("错误：留言板创建失败，无法连接数据库");
    },1000 * 20);
@@ -25,6 +26,7 @@ function newbbs()
        var result = sessionStorage.getItem("boardID");
         if (result == "" || result == null)
         {
+           result = JSON.parse(result);
            clearInterval(s);
           alert(result.objectId);
           location.href = "/bbs#" + result.objectId;
