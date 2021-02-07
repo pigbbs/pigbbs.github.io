@@ -24,7 +24,7 @@ function newbbs()
     setInterval(function() {
     
        var result = sessionStorage.getItem("boardID");
-        if (result == "" || result == null)
+        if (!(result == "" || result == null))
         {
            result = JSON.parse(result);
            clearInterval(s);
