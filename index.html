@@ -17,12 +17,14 @@ function gobbs()
 }
 function newbbs()
 {
-   if (sessionStorage.getItem("pigbbs-username") == "")
+   var n = sessionStorage.getItem("pigbbs-username");
+   if (n == "" || n == null)
    {
       
       alert("错误！请先登录");
       sessionStorage.removeItem("captcha");
       location.href = "login";
+      return;
    }
    db.newbbs();
    var s = setTimeout(function(){
