@@ -28,6 +28,7 @@ function newbbs()
         {
            result = JSON.parse(result);
            clearInterval(s);
+           result = result.result;
           alert(result.objectId);
           location.href = "/bbs#" + result.objectId;
         }
