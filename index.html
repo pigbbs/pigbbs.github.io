@@ -17,10 +17,14 @@ function gobbs()
 }
 function newbbs()
 {
-    var result =  db.newbbs();
-    alert(result);
-    location.href = "/bbs#" + result.objectId;
+    var result = sessionStorage.getItem("boardID");
+    if (result == null || result == "")
+    {
+       alert("错误！留言板创建失败，数据库连接错误");
+    } else {
+        alert(result.objectId);
+        location.href = "/bbs#" + result.objectId;
+    }
 }
-
 </script>
 </pre>
