@@ -13,8 +13,9 @@ function newcaptcha(canvasid)
    var canvas = document.getElementById(canvasid);
    sessionStorage.setItem("captchastr",str);
   // alert(str);
-   ctx.fillStyle="#ff0000";
+   ctx.fillStyle="black";
    ctx.fillRect(0,0,200,50);
+   ctx.fillStyle="#00ff00";
    ctx.font = "40px Arial";
    ctx.fillText(str,0,0);
    } catch (err) { alert(err); }
