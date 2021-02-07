@@ -17,6 +17,13 @@ function gobbs()
 }
 function newbbs()
 {
+   if (sessionStorage.getItem("pigbbs-username") == "")
+   {
+      
+      alert("错误！请先登录");
+      sessionStorage.removeItem("captcha");
+      location.href = "login";
+   }
    db.newbbs();
    var s = setTimeout(function(){
       alert("错误：留言板创建失败，无法连接数据库");
