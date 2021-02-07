@@ -47,17 +47,37 @@ db.savedata = function(objid,dat) {
 db.newbbs = function () {
 
      var obj = {};
-     var query = Bmob.Query("chat");
-     query.set("content","<strong>欢迎来到猪猪留言板</strong><br>");
-    query.set("lever","free");
-     query.save().then(res => {
-          obj.status = 200;
-          obj.result = res;
-          sessionStorage.setItem("boardID",JSON.stringify(obj));
-     }).catch(err => {
-          obj.status = 400;
-          obj.result = err;
-          sessionStorage.setItem("boardID",JSON.stringify(obj));
-     });
+    var uuid = sessionStorage.getItem("uuid");
+    var q = Bmob.Query("userinfo");
+    q.get(uuid).then(res => {
+      console.log(res);
+      q.set("id",res.result.objectId);
+      q.set("BBSnum",parseInt(res.result.BBSnum)+1);
+      if (res.result.BBSnum > 2)
+        alert("错误！您的账户创建的留言板已达上限");
+      else
+      {
+        q.save().then(res => {
+          console.log(res);
+          
+           var query = Bmob.Query("chat");
+            query.set("content","<strong>欢迎来到猪猪留言板</strong><br>");
+           query.set("lever","free");
+              query.save().then(res => {
+                    obj.status = 200;
+                    obj.result = res;
+                     sessionStorage.setItem("boardID",JSON.stringify(obj));
+          }).catch(err => {
+                   obj.status = 400;
+                   obj.result = err;
+                     sessionStorage.setItem("boardID",JSON.stringify(obj));
+              });
+        }).catch(err => {
+                console.log(err);
+          });
+      }
+    }).catch(err => {
+      console.log(err);
+    });
      
 };
