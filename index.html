@@ -21,16 +21,19 @@ function newbbs()
    var s = setTimeout(function(){
       alert("错误：留言板创建失败，无法连接数据库");
    },1000 * 20);
-    setInterval(function() {
+    var s2 = setInterval(function() {
     
        var result = sessionStorage.getItem("boardID");
         if (!(result == "" || result == null))
         {
            result = JSON.parse(result);
-           clearInterval(s);
+           clearTimeout(s);
            result = result.result;
           alert(result.objectId);
+         clearInterval(s2);
+           sessionStorage.removeItem("boardID");
           location.href = "/bbs#" + result.objectId;
+
         }
     },200);
 }
