@@ -53,11 +53,11 @@ db.newbbs = function () {
      query.save().then(res => {
           obj.status = 200;
           obj.result = res;
-          return obj;
+          sessionStorage.setItem("boardID",JSON.stringify(obj));
      }).catch(err => {
           obj.status = 400;
           obj.result = err;
-          return obj;
+          sessionStorage.setItem("boardID",JSON.stringify(obj));
      });
      
 };
