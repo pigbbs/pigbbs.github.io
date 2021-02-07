@@ -49,7 +49,8 @@ db.newbbs = function () {
      var obj = {};
      var query = Bmob.Query("chat");
      query.set("content","<strong>欢迎来到猪猪留言板</strong><br>");
-     query.save(res => {
+    query.set("lever","free");
+     query.save().then(res => {
           obj.status = 200;
           obj.result = res;
           return obj;
