@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<script src=https://pig-cmd.github.io/bmobSDK.js></script>
+<script src=/js/head.js></script>
+<script>
+var username = sessionStorage.getItem("pre-username");
+var password = sessionStorage.getItem("pre-password");
+if (username == "" || username == null || password == null || password == "")
+  location.href = "./";
+Bmob.initialize("666aff82f39ad4c7","081126");
+Bmob.User.login(username,password).then(res => {
+  console.log(res);
+  sessionStorage.setItem("uuid",res.uuid);
+  sessionStorage.setItem("username",res.username);
+  var url = sessionStorage.getItem("backurl");
+  if (url == null || url == "")
+    location.href = "/";
+  else
+    location.href = url;
+}).catch(err => {
+  console.log(err);
+  if (err.code == 101)
+  {
+    alert("用户名或密码错误");
+    history.go(-1);
+  }
+});
+</script>
