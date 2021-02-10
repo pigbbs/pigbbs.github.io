@@ -37,7 +37,7 @@ query.save().then(res => {
     var hash = decodeURI(location.hash.substring(1));
     if (hash != "")
       location.href = hash;
-    var url = sessionStorage.getItem("backurl");
+    var url = sessionStorage.getItem("url");
     if (url == null || url == "")
       location.href = "/";
    else
