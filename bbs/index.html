@@ -125,8 +125,7 @@ function fgopage()
                           query.set("content",content);
                           query.save().then(res => {
                               alert("发送成功！");
-                              sessionStorage.setItem("content",res.content);
-                              sessionStorage.setItem("level",res.level);
+                              sessionStorage.setItem("content",content);
                               gopage(1);
                           }).catch(err => {
                             console.log(err);
