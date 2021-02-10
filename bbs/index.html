@@ -53,8 +53,8 @@ function gopage(n) {
     query.get(bbsid).then(res => {
       console.log(res);
       sessionStorage.setItem("content",res.content);
-      sessionStorage.setItem("level",res.level);
-      if ((res.level + 1) * 8 == 2 * 1024)
+      sessionStorage.setItem("level",res.lever);
+      if ((res.lever + 1) * 8 == 2 * 1024)
         document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
       else
       {
