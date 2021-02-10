@@ -47,7 +47,56 @@ function gopage(n) {
     document.getElementById("np").className = "show-element";
   } else {
     document.getElementById("bp").className = "hide-element";
-    document.getElementById("bp").className = "hide-element";
+    document.getElementById("np").className = "hide-element";
+    var bbsid = location.hash.substring(1);
+    const query = Bmob.Query("chat");
+    query.get(bbsid).then(res => {
+      console.log(res);
+      sessionStorage.setItem("content",res.content);
+      sessionStorage.setItem("level",res.level);
+      if ((res.level + 1) * 8 == 2 * 1024)
+        document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
+      else
+      {
+        if (res.level == "free")
+          level = 0;
+        document.getElementById("bbscontent").innerHTML = "留言板等级：" + level + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
+        var maxlevel = (2 * 1024 / 8 - 1 - level);
+        var maxnum;
+        var maxprice = maxlevel * 20;
+        if (maxlevel < 10)
+        {
+          maxnum = "不打折";
+        } else if (maxlevel < 30) {
+          maxnum = "打九八折";
+          maxprice *= 0.98;
+        } else if (maxlevel < 50) {
+          maxnum = "打九五折";
+          maxprice *= 0.95;
+        } else if (maxlevel < 100) {
+          maxnum = "打九折";
+          maxprice *= 0.9;
+        } else if (maxlevel < 150) {
+          maxnum = "打八折";
+          maxprice *= 0.8;
+        } else if (maxlevel < 150) {
+          maxnum = "打七五折";
+          maxprice *= 0.75;
+        } else if (maxlevel < 200) {
+          maxnum = "打六五折";
+          maxprice *= 0.65;
+        } else {
+          maxnum = "打五折";
+          maxprice *= 0.5;
+        }
+        maxprice = parseInt(maxprice);
+        document.getElementById("bbscontent").innerHTML += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font><input type=button value=购买 onclick=javascript:buyspace(" + maxlevel + "," + maxprice + ");><br>";
+          //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        
+       }
+    }).catch(err => {
+      console.log(err);
+    });
   }
   if (n == 1)
     document.getElementById("bp").className = "hide-element";
