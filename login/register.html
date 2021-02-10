@@ -25,6 +25,6 @@ if (password.length > 16 || password.length < 8 || username.length > 16 || usern
 sessionStorage.setItem("pre-username",username);
 sessionStorage.setItem("pre-password",password);
 sessionStorage.removeItem("captcha");
-location.href = "save-register.html#" + location.hash;
+location.href = "save-register.html" + location.hash;
 }
 </script>
