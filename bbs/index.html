@@ -89,12 +89,16 @@ function fgopage()
   function submitform()
   {
     var form = document.getElementById("form").innerHTML;
+    form = form.replace(/<div>/g,"");
+    form = form.replace(/<\/div>/g,"");
+    form = form.replace(/<br>/g,"\n");
     form = form.replace(/&/g,"&amp;");
     form = form.replace(/</g,"&lt;");
     form = form.replace(/>/g,"&gt;");
     form = form.replace(/\s/g,"&nbsp;");
     form = form.replace(/\'/g,"&#39;");
     form = form.replace(/\"/g,"&quot;");
+    form = form.replace(/\n/g,"<br>");
     if (form.length > 140)
     {
       alert("输入过长！");
