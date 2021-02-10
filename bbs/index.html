@@ -1,0 +1,45 @@
+<meta charset="utf-8">
+<title>猪猪留言板</title>
+<script src=https://pig-cmd.github.io/bmobSDK.js></script>
+<script src=/js/head.js></script>
+<script>
+checklogin();
+</script>
+<center><pre>
+<span style='font-size:3em'>猪猪留言板 - BBSID:<span id=bbsid></span>
+<a href=/>返回主页</a>
+BBS等级：<span id=bbs-lever>
+<table border=10><tr><td><span id=bbscontent></span></td></tr></table>
+<pre id=page><input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();></pre>
+请输入您要发送的文字<br><pre id=form contenteditable=true></pre>
+验证码
+<iframe src=https://pigbbs.github.io/captcha#/captcha>
+<input type=button value=发送 onclick=javascript:submitform();>
+<script>
+sessionStorage.removeItem("captcha");
+Bmob.initialize("666aff82f39ad4c7","081126");
+var bbsid = location.hash.substring(1);
+document.getElementById("bbsid").innerHTML = bbsid;
+var query = Bmob.Query("chat");
+query.get(bbsid).then(res => {
+  console.log(res);
+  sessionStorage.setItem("content",res.content);
+  sessionStorage.setItem("lever",res.lever);
+  gopage(1);
+}).catch(err => {
+  console.log(err);
+});
+function gopage(n) {
+  n = parseInt(n);
+  var content = sessionStorage.getItem("content");
+  document.getElementById("page-num").innerHTML = n;
+  if (content.length > (n - 1) * 1024)
+  {
+    if (content.length > n * 1024)
+      var display = content.substring((n - 1) * 1024,n * 1024);
+     else
+      var display = content.substring((n - 1) * 1024);
+      document.getElementById("bbscontent").innerHTML = display;
+  } else gopage(1);
+}
+</script>
