@@ -18,7 +18,10 @@ if (password != password2)
   return;
 }
 if (password.length > 16 || password.length < 8 || username.length > 16 || username.length < 8)
+{
   alert("密码或用户名过短");
+  return;
+}
 sessionStorage.setItem("pre-username",username);
 sessionStorage.setItem("pre-password",password);
 sessionStorage.removeItem("captcha");
