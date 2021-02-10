@@ -14,10 +14,10 @@ function newcaptcha(canvasid)
    sessionStorage.setItem("captchastr",str);
   // alert(str);
    ctx.fillStyle="black";
-   ctx.fillRect(0,0,200,50);
+   ctx.fillRect(0,0,400,100);
    ctx.fillStyle="#00ff00";
    ctx.font = "40px Arial";
-   ctx.fillText(str,0,0);
+   ctx.fillText(str,50,50);
    } catch (err) { alert(err); }
 }
 function checkcaptcha(textid)
