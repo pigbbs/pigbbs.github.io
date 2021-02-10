@@ -61,6 +61,8 @@ function gopage(n) {
         var level = res.level;
         if (level == "free")
           level = 0;
+        else
+          level = parseInt(level);
         document.getElementById("bbscontent").innerHTML = "留言板等级：" + level + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
         var maxlevel = (2 * 1024 / 8 - 1 - level);
         var maxnum;
