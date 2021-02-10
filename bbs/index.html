@@ -110,7 +110,7 @@ function fgopage()
       var lever = res.lever;
       if (lever == "free")
         lever = 0;
-      if (content.length > (8 * 1024 * (lever + 1))
+      if (content.length > (8 * 1024 * (lever + 1)))
           {
               alert("数据库存储已达上限\n请升级数据库储存空间");
               gopage(0);
