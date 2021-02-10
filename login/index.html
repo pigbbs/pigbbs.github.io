@@ -1,0 +1,18 @@
+<meta charset="utf-8">
+<title>猪猪留言板 - 登录</title>
+<script src=https://pig-cmd.github.io/bmobSDK.js></script>
+<script src=/js/head.js></script>
+<center><pre>
+<span style='font-size:3em'>登录</span>
+用户名<input type=text maxlength=24 id=username placeholder=Username>
+密码<input type=password maxlength=16 id=password placeholder=Password>
+<input type=button value=提交 onclick=javascript:login();>
+<script>
+function login()
+{
+  sessionStorage.removeItem("captcha");
+  sessionStorage.setItem("pre-username",document.getElementById("username").value);
+  sessionStorage.setItem("pre-password",document.getElementById("password").value);
+  location.href="save-login.html";
+}
+</script>
