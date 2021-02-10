@@ -2,8 +2,9 @@ if (sessionStorage.getItem("captcha") == null)
   location.href = "/captcha#" + location.href;
 function checklogin()
 {
-  if (sessionStorage.getItem("uuid") != null && sessionStorage.getItem("username") != null)
-    location.href = "/login#" + locatiob.href;
+  sessionStorage.setItem("url",location.href);
+  if (sessionStorage.getItem("uuid") == null || sessionStorage.getItem("username") == null)
+    location.href = "/login#" + encodeURI(location.href);
 }
 function checkrobot()
 {
