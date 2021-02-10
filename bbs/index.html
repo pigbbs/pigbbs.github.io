@@ -129,6 +129,7 @@ function fgopage()
                           query.save().then(res => {
                               alert("发送成功！");
                               sessionStorage.setItem("content",content);
+                              document.getElementById("form").innerHTML = "";
                               gopage(1);
                           }).catch(err => {
                             console.log(err);
