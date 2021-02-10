@@ -84,7 +84,8 @@ function fgopage()
     page++;
     gopage(page);
   }
-  sessionStorage.setItem("updatetime",new Date().getTime());
+  if (sessionStorage.getItem("updatetime") == null)
+     sessionStorage.setItem("updatetime",new Date().getTime());
   function submitform()
   {
     var form = document.getElementById("form").innerHTML;
