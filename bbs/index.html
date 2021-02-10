@@ -22,7 +22,7 @@ sessionStorage.removeItem("captcha");
 Bmob.initialize("666aff82f39ad4c7","081126");
 var bbsid = location.hash.substring(1);
 console.log(bbsid);
-  document.getElementById("qr-code").src = "https://api.no0a.cn/api/qrcode/query?url=" + location.href;
+  document.getElementById("qr-code").src = "https://api.no0a.cn/api/qrcode/query?url=https://pigbbs.github.io/bbs/join.html?bbsid=" + bbsid;
 document.getElementById("bbsid").innerHTML = bbsid;
 var query = Bmob.Query("chat");
 query.get(bbsid).then(res => {
