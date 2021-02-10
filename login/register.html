@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<title>猪猪留言板 - 注册</title>
+<script src=/js/head.js></script>
+<center><pre>
+<span style='font-size:3em'>注册</span>
+用户名<input type=text placeholder=Username id=username maxlength=24>
+密码<input type=password placeholder=Password id=password maxlength=16>
+验证密码<input type=password placeholder=Password id=password2 maxlength=16>
+<input type=button value=注册 onclick=javascript:register();>
+<script>
+function register(){
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+var password2 = document.getElementById("password2").value;
+if (password != password2)
+{
+  alert("密码与验证密码不符");
+  return;
+}
+if (password.length > 16 || password.length < 8 || username.length > 16 || username.length < 8)
+  alert("密码或用户名过短");
+sessionStorage.setItem("pre-username",username);
+sessionStorage.setItem("pre-password",password);
+sessionStorage.removeItem("captcha");
+location.href = "save-register.html#" + location.hash;
+}
+</script>
