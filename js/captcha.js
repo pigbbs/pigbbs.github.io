@@ -23,13 +23,13 @@ function newcaptcha(canvasid)
    var rand3 = ["#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16),"#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16),"#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16),"#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16)];
    console.log(rand3);
    ctx.fillStyle=rand3[0];
-   ctx.fillText(str.substring(0,1),20 + rand1[0],50 + rand2[0]);
+   ctx.fillText(str.substring(0,1),50 + rand2[0],20 + rand1[0]);
    ctx.fillStyle=rand3[1];   
-   ctx.fillText(str.substring(1,2),20 + rand1[1],150 + rand2[1]);
+   ctx.fillText(str.substring(1,2),150 + rand2[1],20 + rand1[1]);
    ctx.fillStyle=rand3[2];
-   ctx.fillText(str.substring(2,3),20 + rand1[2],250 + rand2[2]);  
+   ctx.fillText(str.substring(2,3),250 + rand2[2],20 + rand1[2]);  
    ctx.fillStyle=rand3[3];
-   ctx.fillText(str.substring(3,4),20 + rand1[3],350 + rand2[3]);
+   ctx.fillText(str.substring(3,4),350 + rand2[3],20 + rand1[3]);
    } catch (err) { alert(err); }
 }
 function checkcaptcha(textid)
