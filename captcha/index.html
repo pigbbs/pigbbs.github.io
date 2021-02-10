@@ -5,9 +5,10 @@
 <center><pre style="font-family:Cursive,Helvetica,sans-serif;white-space:pre-wrap">
 请填写正确的验证码以证明你是个人类
 <canvas id=captchacanvas height=100px width=400px>Not support this element:"canvas".Please change a browser.</canvas>
-<a href=# onclick=javascript:newcaptcha("captchacanvas");>双目失明？更换验证码</a>
+<span id=change-captcha></span>
 <input type=text id=txt placeholder=验证码><input type=button value=提交 onclick=javascript:submitcaptcha();>
 <script>
+document.getElementById("change-captcha").innerHTML = "<a href=" + location.hash + " onclick=javascript:newcaptcha('captchacanvas');>双目失明？更换验证码</a>"
 newcaptcha("captchacanvas");
 function submitcaptcha()
 {
