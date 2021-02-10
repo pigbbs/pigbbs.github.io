@@ -6,6 +6,7 @@
 <span style='font-size:3em'>登录</span>
 用户名<input type=text maxlength=24 id=username placeholder=Username>
 密码<input type=password maxlength=16 id=password placeholder=Password>
+<input type=button value='没有账号？点我注册' onclick=javascript:goreg();>
 <input type=button value=提交 onclick=javascript:login();>
 <script>
 function login()
@@ -15,5 +16,10 @@ function login()
   sessionStorage.setItem("pre-password",document.getElementById("password").value);
   var hash = location.hash;
   location.href="save-login.html" + hash;
+}
+function goreg()
+{
+  var hash = location.hash;
+  location.href = "register.html" + hash;
 }
 </script>
