@@ -101,6 +101,11 @@ function fgopage()
       alert("请等待30秒再发送");
       return;
     }
+    if (sessionStorage.getItem("captcha") == null)
+    {
+      alert("请填写验证码");
+      return;
+    }
     var bbsid = location.hash.substring(1);
     const query = Bmob.Query("chat");
     query.get(bbsid).then(res => {
