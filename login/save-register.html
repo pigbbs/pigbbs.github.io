@@ -1,0 +1,55 @@
+<meta charset="utf-8">
+<script src=/js/head.js></script>
+<script src=https://pig-cmd.github.io/bmobSDK.js></script>
+<script>
+var username = sessionStorage.getItem("pre-username");
+var password = sessionStorage.getItem("pre-password");
+var users = localStorage.getItem("users");
+if (users == null || users == "")
+  users = {};
+else
+  users = JSON.parse(users);
+if (users.length > 2)
+{
+  alert("注册失败！这台设备上注册的账号过多！");
+  location.href = "/";
+}
+var email = Math.random().toString().substring(3) + "@pigbbs.net";
+var phone = parseInt(Math.random().toString().substring(3,14));
+Bmob.initialize("666aff82f39ad4c7","081126");
+const query = Bmob.Query("userinfo");
+query.set("username",username);
+query.set("password",password);
+query.set("mybbs","{}");
+query.set("pigcoin",0);
+query.set("use4image",false);
+query.set("useHTML",false);
+query.save().then(res => {
+  console.log(res);
+  var uuid = res.objectId;
+  Bmob.User.register({"username":username,"password":password,"uuid":res.objectId}).then(res => {
+    console.log(res);
+    sessionStorage.setItem("username",username);
+    sessionStorage.setItem("uuid",uuid);
+    users[users.length] = uuid;
+    localStorage.setItem("users",JSON.stringify(users));
+    var hash = decodeURI(location.hash.substring(1));
+    if (hash != "")
+      location.href = hash;
+    var url = sessionStorage.getItem("backurl");
+    if (url == null || url == "")
+      location.href = "/";
+   else
+      location.href = url;
+   }).catch(err => {
+    console.log(err);
+    if (err.code == 202)
+    {
+      alert("用户名重复");
+      history.go(-2);
+    }
+   });
+}).catch(err => {
+  console.log(err);
+});
+</script>
