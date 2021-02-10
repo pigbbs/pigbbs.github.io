@@ -81,6 +81,56 @@ function fgopage()
     page++;
     gopage(page);
   }
+  sessionStorage.setItem("updatetime",new Date().getTime());
+  function submitform()
+  {
+    var form = document.getElementById("form").innerHTML;
+    form = form.replace(/&/g,"&amp;");
+    form = form.replace(/</g,"&lt;");
+    form = form.replace(/>/g,"&gt;");
+    form = form.replace(/\s/g,"&nbsp;");
+    form = form.replace(/\'/g,"&#39;");
+    form = form.replace(/\"/g,"&quot;");
+    if (form.length > 140)
+    {
+      alert("输入过长！");
+      return;
+    }
+    if (checkrobot())
+    {
+      alert("请等待30秒再发送");
+      return;
+    }
+    var bbsid = location.hash.substring(1);
+    const query = Bmob.Query("chat");
+    query.get(bbsid).then(res => {
+      console.log(res);
+      var content = res.content;
+      content = "[" + sessionStorage.getItem("username") + "]" + "<font color=red>" + new Date() + "</font><br>" + form + "<hr>" + content;
+      var lever = res.lever;
+      if (lever == "free")
+        lever = 0;
+      if (content.length > (8 * 1024 * (lever + 1))
+          {
+              alert("数据库存储已达上限\n请升级数据库储存空间");
+              gopage(0);
+              return;
+    }
+                          query.set("id",res.objectId);
+                          query.set("content",content);
+                          query.save().then(res => {
+                              alert("发送成功！");
+                              sessionStorage.setItem("content",res.content);
+                              sessionStorage.setItem("level",res.level);
+                              gopage(1);
+                          }).catch(err => {
+                            console.log(err);
+                            alert("发送失败！");
+                          });
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 </script>
   <style>
     .hide-element {
