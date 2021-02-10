@@ -25,6 +25,7 @@ query.set("pigcoin",0);
 query.set("use4image",false);
 query.set("useHTML",false);
 query.set("BBSnum",0);
+query.set("usertype","user");
 query.save().then(res => {
   console.log(res);
   var uuid = res.objectId;
@@ -32,6 +33,7 @@ query.save().then(res => {
     console.log(res);
     sessionStorage.setItem("username",username);
     sessionStorage.setItem("uuid",uuid);
+    sessionStorage.setItem("usertype","user");
     users[users.length] = uuid;
     localStorage.setItem("users",JSON.stringify(users));
     var hash = decodeURI(location.hash.substring(1));
