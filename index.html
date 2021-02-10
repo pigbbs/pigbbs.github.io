@@ -8,6 +8,12 @@
 <div style="text-align:center"><span style='font-size:4em'>猪猪留言板</span></div>
 <a href=login>登录</a>
 <hr>
+<a href=/bbs#1c4eeb1096>留言板1</a>
+<a href=/bbs#e680ce867c>留言板2</a>
+<a href=/bbs#58082a20c7>留言板3</a>
+<a href=/bbs#3b395e2560>留言板4</a>
+<a href=/bbs#c256f2d1c3>留言板5</a>
+<hr>
 请输入BBSID进入留言板<input type=text placeholder=BBSID id=bbsid maxlength=32><input type=button onclick=gobbs(); value=进入>
 <input type=button value=创建一个留言板 onclick=javascript:newbbs();>
 <script>
@@ -37,7 +43,7 @@ function newbbs()
            result = JSON.parse(result);
            clearTimeout(s);
            result = result.result;
-          alert(result.objectId);
+          alert("BBSID:" + result.objectId);
          clearInterval(s2);
            sessionStorage.removeItem("boardID");
           location.href = "/bbs#" + result.objectId;
