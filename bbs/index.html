@@ -19,12 +19,14 @@ BBS等级：<span id=bbs-lever>
 sessionStorage.removeItem("captcha");
 Bmob.initialize("666aff82f39ad4c7","081126");
 var bbsid = location.hash.substring(1);
+console.log(bbsid);
 document.getElementById("bbsid").innerHTML = bbsid;
 var query = Bmob.Query("chat");
 query.get(bbsid).then(res => {
   console.log(res);
   sessionStorage.setItem("content",res.content);
   sessionStorage.setItem("lever",res.lever);
+  document.getElementById("bbs-lever").innerHTML = res.lever;
   gopage(1);
 }).catch(err => {
   console.log(err);
