@@ -17,7 +17,10 @@ function newcaptcha(canvasid)
    ctx.fillRect(0,0,400,100);
    ctx.fillStyle="#00ff00";
    ctx.font = "40px Arial";
-   ctx.fillText(str,50,50);
+   ctx.fillText(str.substring(0,1),20 + parseInt((Math.random() - 0.5) * 3),50 + parseInt((Math.random() - 0.5) * 20));
+   ctx.fillText(str.substring(1,2),20 + parseInt((Math.random() - 0.5) * 3),150 + parseInt((Math.random() - 0.5) * 20));
+   ctx.fillText(str.substring(2,3),20 + parseInt((Math.random() - 0.5) * 3),250 + parseInt((Math.random() - 0.5) * 20));  
+   ctx.fillText(str.substring(3,4),20 + parseInt((Math.random() - 0.5) * 3),350 + parseInt((Math.random() - 0.5) * 20));
    } catch (err) { alert(err); }
 }
 function checkcaptcha(textid)
