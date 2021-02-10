@@ -6,7 +6,7 @@
 <script src=/js/db.js></script>
 <pre style='font-family:Cursive,Helvetica,sans-serif;white-space:pre-wrap'>
 <div style="text-align:center"><span style='font-size:4em'>猪猪留言板</span></div>
-<a href=login>登录</a>
+<span id=username-box><a href=login>登录</a></span>
 <hr>
 <a href=/bbs#1c4eeb1096>留言板1</a>
 <a href=/bbs#e680ce867c>留言板2</a>
@@ -50,6 +50,26 @@ function newbbs()
 
         }
     },200);
+}
+var username = sessionStorage.getItem("username");
+var uuid = sessionStorage.getItem("uuid");
+if (uuid != null && username != null)
+   document.getElementById("username-box").innerHTML = "用户名：" + username + "|UUID:" + uuid + "<input type=button value=退出登录 onclick=javascript:logout();>";
+function logout()
+{
+   localStorage.removeItem("bmob");
+   localStorage.removeItem("OteIJS.ClientId");
+   sessionStorage.removeItem("pre-username");
+   sessionStorage.removeItem("pre-password");
+   sessionStorage.removeItem("page");
+   sessionStorage.removeItem("captchastr");
+   sessionStorage.removeItem("content");
+   sessionStorage.removeItem("username");
+   sessionStorage.removeItem("captcha");
+   sessionStorage.removeItem("url");
+   sessionStorage.removeItem("level");
+   sessionStorage.removeItem("uuid");
+   location.reload();
 }
 </script>
 </pre>
