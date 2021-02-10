@@ -6,7 +6,7 @@ var username = sessionStorage.getItem("pre-username");
 var password = sessionStorage.getItem("pre-password");
 var users = localStorage.getItem("users");
 if (users == null || users == "")
-  users = {};
+  users = [];
 else
   users = JSON.parse(users);
 if (users.length > 2)
