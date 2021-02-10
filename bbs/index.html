@@ -80,9 +80,6 @@ function gopage(n) {
           maxnum = "打九折";
           maxprice *= 0.9;
         } else if (maxlevel < 150) {
-          maxnum = "打八折";
-          maxprice *= 0.8;
-        } else if (maxlevel < 150) {
           maxnum = "打七五折";
           maxprice *= 0.75;
         } else if (maxlevel < 200) {
@@ -93,8 +90,34 @@ function gopage(n) {
           maxprice *= 0.5;
         }
         maxprice = parseInt(maxprice);
-        document.getElementById("bbscontent").innerHTML += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font><input type=button value=购买 onclick=javascript:buyspace(" + maxlevel + "," + maxprice + ");><br>";
-          //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        document.getElementById("bbscontent").innerHTML += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font>" + "<font color=blue>" + maxlevel * 8 * 1024 + "字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(" + maxlevel + "," + maxprice + ");><br>";
+        if (maxlevel > 199)
+          document.getElementById("bbscontent").innerHTML += "购买200等级 原价4000猪头 现价2600猪头 <font color=red>打六五折</font> <font color=blue>1638400字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(200,2600);><br>";
+        if (maxlevel > 149)
+          document.getElementById("bbscontent").innerHTML += "购买150等级 原价3000猪头 现价2250猪头 <font color=red>打七五折</font> <font color=blue>1228800字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(150,2250);><br>";
+        if (maxlevel > 99)
+          document.getElementById("bbscontent").innerHTML += "购买100等级 原价2000猪头 现价1800猪头 <font color=red>打九折</font> <font color=blue>819200字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(100,1800);><br>";
+        if (maxlevel > 49)
+          document.getElementById("bbscontent").innerHTML += "购买50等级 原价1000猪头 现价950猪头 打九五折 <font color=blue>409600字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(50,950);><br>";
+        if (maxlevel > 29)
+          document.getElementById("bbscontent").innerHTML += "购买30等级 原价600猪头 现价588猪头 打九八折 <font color=blue>245760字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(30,588);><br>";
+        if (maxlevel > 19)
+          document.getElementById("bbscontent").innerHTML += "购买20等级 原价400猪头 现价396猪头 打九九折 <font color=blue>163840字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(20,396);><br>";
+        if (maxlevel > 9)
+          document.getElementById("bbscontent").innerHTML += "购买10等级 200猪头 <font color=blue>81920字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(10,200);><br>";
+        if (maxlevel > 4)
+          document.getElementById("bbscontent").innerHTML += "购买5等级 100猪头 40960字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(5,100);><br>";
+        if (maxlevel > 2)
+          document.getElementById("bbscontent").innerHTML += "购买3等级 60猪头 24576字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(3,60);><br>";
+        if (maxlevel > 1)
+          document.getElementById("bbscontent").innerHTML += "购买2等级 40猪头 16384字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(2,40);><br>";
+        if (maxlevel > 0)
+          document.getElementById("bbscontent").innerHTML += "购买1等级 20猪头 8192字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(1,20);><br>";
+        document.getElementById("bbscontent").innerHTML += "<br><br><br><input type=button value=退出 onclick=javascript:gopage(1);>";
+        
+        
+        
+        //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         
        }
     }).catch(err => {
