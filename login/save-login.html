@@ -11,6 +11,7 @@ Bmob.User.login(username,password).then(res => {
   console.log(res);
   sessionStorage.setItem("uuid",res.uuid);
   sessionStorage.setItem("username",res.username);
+  sessionStorage.setItem("usertype",res.usertype);
   var hash = decodeURI(location.hash.substring(1));
   if (hash != "")
     location.href = hash;
