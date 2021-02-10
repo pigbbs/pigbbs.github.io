@@ -16,20 +16,20 @@ function newcaptcha(canvasid)
    ctx.fillStyle="black";
    ctx.fillRect(0,0,400,100);
    ctx.font = "40px Arial";
-   var rand1 = [parseInt((Math.random() - 0.5) * 3),parseInt((Math.random() - 0.5) * 3),parseInt((Math.random() - 0.5) * 3),parseInt((Math.random() - 0.5) * 3)];
+   var rand1 = [parseInt((Math.random() - 0.5) * 10),parseInt((Math.random() - 0.5) * 10),parseInt((Math.random() - 0.5) * 10),parseInt((Math.random() - 0.5) * 10)];
    console.log(rand1);
-   var rand2 = [parseInt((Math.random() - 0.5) * 20),parseInt((Math.random() - 0.5) * 20),parseInt((Math.random() - 0.5) * 20),parseInt((Math.random() - 0.5) * 20)];
+   var rand2 = [parseInt((Math.random() - 0.5) * 50),parseInt((Math.random() - 0.5) * 50),parseInt((Math.random() - 0.5) * 50),parseInt((Math.random() - 0.5) * 50)];
    console.log(rand2);
    var rand3 = ["#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16),"#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16),"#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16),"#" + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16) + parseInt(Math.random() * 192 + 64).toString(16)];
    console.log(rand3);
    ctx.fillStyle=rand3[0];
-   ctx.fillText(str.substring(0,1),50 + rand2[0],20 + rand1[0]);
+   ctx.fillText(str.substring(0,1),50 + rand2[0],50 + rand1[0]);
    ctx.fillStyle=rand3[1];   
-   ctx.fillText(str.substring(1,2),150 + rand2[1],20 + rand1[1]);
+   ctx.fillText(str.substring(1,2),150 + rand2[1],50 + rand1[1]);
    ctx.fillStyle=rand3[2];
-   ctx.fillText(str.substring(2,3),250 + rand2[2],20 + rand1[2]);  
+   ctx.fillText(str.substring(2,3),250 + rand2[2],50 + rand1[2]);  
    ctx.fillStyle=rand3[3];
-   ctx.fillText(str.substring(3,4),350 + rand2[3],20 + rand1[3]);
+   ctx.fillText(str.substring(3,4),350 + rand2[3],50 + rand1[3]);
    } catch (err) { alert(err); }
 }
 function checkcaptcha(textid)
