@@ -7,7 +7,13 @@
 密码<input type=password placeholder=Password id=password maxlength=16>
 验证密码<input type=password placeholder=Password id=password2 maxlength=16>
 <input type=button value=注册 onclick=javascript:register();>
+<input type=button value='已经有账号了？点我登录' onclick=javascript:gologin();>
 <script>
+function gologin()
+{
+  var hash = location.hash;
+  location.href = "./" + hash;
+}
 function register(){
 var username = document.getElementById("username").value;
 var password = document.getElementById("password").value;
