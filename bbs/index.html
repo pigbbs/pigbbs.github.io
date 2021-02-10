@@ -58,7 +58,8 @@ function gopage(n) {
         document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
       else
       {
-        if (res.level == "free")
+        var level = res.level;
+        if (level == "free")
           level = 0;
         document.getElementById("bbscontent").innerHTML = "留言板等级：" + level + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
         var maxlevel = (2 * 1024 / 8 - 1 - level);
