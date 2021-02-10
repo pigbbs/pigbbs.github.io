@@ -15,11 +15,14 @@ checklogin();
 验证码
   <iframe src=https://pigbbs.github.io/captcha#/bbs/captcha-ok.html height=400px width=800px></iframe>
 <input type=button value=发送 onclick=javascript:submitform();>
+  扫一扫二维码分享给其他人
+  <img id=qr-code height=64px width=64px>
 <script>
 sessionStorage.removeItem("captcha");
 Bmob.initialize("666aff82f39ad4c7","081126");
 var bbsid = location.hash.substring(1);
 console.log(bbsid);
+  document.getElementById("qr-code").src = "https://api.no0a.cn/api/qrcode/query?url=" + location.href;
 document.getElementById("bbsid").innerHTML = bbsid;
 var query = Bmob.Query("chat");
 query.get(bbsid).then(res => {
