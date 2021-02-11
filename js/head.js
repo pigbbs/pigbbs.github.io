@@ -1,6 +1,6 @@
-if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+/*if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
    location.href = "/bbs/apple-err.html";
-}
+}*/
 
 
 if (sessionStorage.getItem("captcha") == null)
