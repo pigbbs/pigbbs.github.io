@@ -8,7 +8,17 @@
 验证密码<input type=password placeholder=Password id=password2 maxlength=16>
 <input type=button value=注册 onclick=javascript:register();>
 <input type=button value='已经有账号了？点我登录' onclick=javascript:gologin();>
+<input type=checkbox onclick=sessionStorage.setItem('p');>记住密码
 <script>
+var boo = false;
+setInterval(function(){
+  if (sessionStorage.getItem('p') != null)
+  {
+    boo = !boo;
+    sessionStorage.removeItem("p");
+  }
+},200);
+
 function gologin()
 {
   var hash = location.hash;
@@ -30,6 +40,14 @@ if (password.length > 16 || password.length < 8 || username.length > 16 || usern
 }
 sessionStorage.setItem("pre-username",username);
 sessionStorage.setItem("pre-password",password);
+    if (boo)
+  {
+    localStorage.setItem("pre-username",document.getElementById("username").value);
+    localStorage.setItem("pre-password",document.getElementById("password").value);
+  } else {
+    localStorage.removeItem("pre-username");
+    localStorage.removeItem("pre-password");
+  }
 sessionStorage.removeItem("captcha");
 location.href = "save-register.html" + location.hash;
 }
