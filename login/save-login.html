@@ -12,7 +12,7 @@ Bmob.User.login(username,password).then(res => {
   sessionStorage.setItem("uuid",res.uuid);
   sessionStorage.setItem("username",res.username);
   const query = Bmob.Query("userinfo");
-  query.then(res => {
+  query.get(res.uuid).then(res => {
     console.log(res);
     sessionStorage.setItem("usertype",res.usertype);
     sessionStorage.setItem("pigcoin",res.pigcoin);
