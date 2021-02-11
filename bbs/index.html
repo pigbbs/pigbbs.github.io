@@ -20,285 +20,253 @@ checklogin();
   <img id=qr-code height=64px width=64px>
 <script>
 sessionStorage.removeItem("captcha");
-Bmob.initialize("666aff82f39ad4c7","081126");
+Bmob.initialize("666aff82f39ad4c7", "081126");
 var bbsid = location.hash.substring(1);
 console.log(bbsid);
-  document.getElementById("qr-code").src = "https://api.no0a.cn/api/qrcode/query?url=https://pigbbs.github.io/bbs/join.html?bbsid=" + bbsid;
+document.getElementById("qr-code").src = "https://api.no0a.cn/api/qrcode/query?url=https://pigbbs.github.io/bbs/join.html?bbsid=" + bbsid;
 document.getElementById("bbsid").innerHTML = bbsid;
 var query = Bmob.Query("chat");
-query.get(bbsid).then(res => {
-  console.log(res);
-  sessionStorage.setItem("content",res.content);
-  sessionStorage.setItem("lever",res.lever);
-  document.getElementById("bbs-lever").innerHTML = res.lever;
-  gopage(1);
-}).catch(err => {
-  console.log(err);
-  if (err.code == 101)
-    location.href = "/";
+query.get(bbsid).then(res = >{
+	console.log(res);
+	sessionStorage.setItem("content", res.content);
+	sessionStorage.setItem("lever", res.lever);
+	document.getElementById("bbs-lever").innerHTML = res.lever;
+	gopage(1);
+}).
+catch(err = >{
+	console.log(err);
+	if (err.code == 101) location.href = "/";
 });
 function gopage(n) {
-  n = parseInt(n);
-  if (0 > n)
-    n = 1;
-  if (n)
-  {
-    document.getElementById("bp").className = "show-element";
-    document.getElementById("np").className = "show-element";
-  } else {
-    document.getElementById("bp").className = "hide-element";
-    document.getElementById("np").className = "hide-element";
-    var bbsid = location.hash.substring(1);
-    const query = Bmob.Query("chat");
-    query.get(bbsid).then(res => {
-      console.log(res);
-      sessionStorage.setItem("content",res.content);
-      sessionStorage.setItem("level",res.lever);
-      if ((res.lever + 1) * 8 == 2 * 1024)
-        document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
-      else
-      {
-        var level = res.lever;
-        if (level == "free")
-          level = 0;
-        else
-          level = parseInt(level);
-        document.getElementById("bbscontent").innerHTML = "留言板等级：" + level + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
-        var maxlevel = (2 * 1024 / 8 - 1 - level);
-        var maxnum;
-        var maxprice = maxlevel * 20;
-        if (maxlevel < 10)
-        {
-          maxnum = "不打折";
-        } else if (maxlevel < 30) {
-          maxnum = "打九八折";
-          maxprice *= 0.98;
-        } else if (maxlevel < 50) {
-          maxnum = "打九五折";
-          maxprice *= 0.95;
-        } else if (maxlevel < 100) {
-          maxnum = "打九折";
-          maxprice *= 0.9;
-        } else if (maxlevel < 150) {
-          maxnum = "打七五折";
-          maxprice *= 0.75;
-        } else if (maxlevel < 200) {
-          maxnum = "打六五折";
-          maxprice *= 0.65;
-        } else {
-          maxnum = "打五折";
-          maxprice *= 0.5;
-        }
-        maxprice = parseInt(maxprice);
-        document.getElementById("bbscontent").innerHTML += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font>" + "<font color=blue>" + maxlevel * 8 * 1024 + "字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(" + maxlevel + "," + maxprice + ");><br>";
-        if (maxlevel > 199)
-          document.getElementById("bbscontent").innerHTML += "购买200等级 原价4000猪头 现价2600猪头 <font color=red>打六五折</font> <font color=blue>1638400字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(200,2600);><br>";
-        if (maxlevel > 149)
-          document.getElementById("bbscontent").innerHTML += "购买150等级 原价3000猪头 现价2250猪头 <font color=red>打七五折</font> <font color=blue>1228800字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(150,2250);><br>";
-        if (maxlevel > 99)
-          document.getElementById("bbscontent").innerHTML += "购买100等级 原价2000猪头 现价1800猪头 <font color=red>打九折</font> <font color=blue>819200字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(100,1800);><br>";
-        if (maxlevel > 49)
-          document.getElementById("bbscontent").innerHTML += "购买50等级 原价1000猪头 现价950猪头 打九五折 <font color=blue>409600字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(50,950);><br>";
-        if (maxlevel > 29)
-          document.getElementById("bbscontent").innerHTML += "购买30等级 原价600猪头 现价588猪头 打九八折 <font color=blue>245760字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(30,588);><br>";
-        if (maxlevel > 19)
-          document.getElementById("bbscontent").innerHTML += "购买20等级 原价400猪头 现价396猪头 打九九折 <font color=blue>163840字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(20,396);><br>";
-        if (maxlevel > 9)
-          document.getElementById("bbscontent").innerHTML += "购买10等级 200猪头 <font color=blue>81920字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(10,200);><br>";
-        if (maxlevel > 4)
-          document.getElementById("bbscontent").innerHTML += "购买5等级 100猪头 40960字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(5,100);><br>";
-        if (maxlevel > 2)
-          document.getElementById("bbscontent").innerHTML += "购买3等级 60猪头 24576字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(3,60);><br>";
-        if (maxlevel > 1)
-          document.getElementById("bbscontent").innerHTML += "购买2等级 40猪头 16384字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(2,40);><br>";
-        if (maxlevel > 0)
-          document.getElementById("bbscontent").innerHTML += "购买1等级 20猪头 8192字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(1,20);><br>";
-        document.getElementById("bbscontent").innerHTML += "<br><br><br><input type=button value=退出 onclick=javascript:gopage(1);>";
-        
-        
-        
-        //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        
-       }
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-  if (n == 1)
-    document.getElementById("bp").className = "hide-element";
-  if (n > 1)
-    document.getElementById("bp").className = "show-element";
-  sessionStorage.setItem("page",n);
-  var content = sessionStorage.getItem("content");
-  document.getElementById("page-num").innerHTML = n;
-  if (content.length > (n - 1) * 1024)
-  {
-    if (content.length > n * 1024)
-      var display = content.substring((n - 1) * 1024,n * 1024);
-     else
-      var display = content.substring((n - 1) * 1024);
-      document.getElementById("bbscontent").innerHTML = display;
-  } else gopage(1);
+	n = parseInt(n);
+	if (0 > n) n = 1;
+	if (n) {
+		document.getElementById("bp").className = "show-element";
+		document.getElementById("np").className = "show-element";
+	} else {
+		document.getElementById("bp").className = "hide-element";
+		document.getElementById("np").className = "hide-element";
+		var bbsid = location.hash.substring(1);
+		const query = Bmob.Query("chat");
+		query.get(bbsid).then(res = >{
+			console.log(res);
+			sessionStorage.setItem("content", res.content);
+			sessionStorage.setItem("level", res.lever);
+			if ((res.lever + 1) * 8 == 2 * 1024) document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
+			else {
+				var level = res.lever;
+				if (level == "free") level = 0;
+				else level = parseInt(level);
+				document.getElementById("bbscontent").innerHTML = "留言板等级：" + level + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
+				var maxlevel = (2 * 1024 / 8 - 1 - level);
+				var maxnum;
+				var maxprice = maxlevel * 20;
+				if (maxlevel < 10) {
+					maxnum = "不打折";
+				} else if (maxlevel < 30) {
+					maxnum = "打九八折";
+					maxprice *= 0.98;
+				} else if (maxlevel < 50) {
+					maxnum = "打九五折";
+					maxprice *= 0.95;
+				} else if (maxlevel < 100) {
+					maxnum = "打九折";
+					maxprice *= 0.9;
+				} else if (maxlevel < 150) {
+					maxnum = "打七五折";
+					maxprice *= 0.75;
+				} else if (maxlevel < 200) {
+					maxnum = "打六五折";
+					maxprice *= 0.65;
+				} else {
+					maxnum = "打五折";
+					maxprice *= 0.5;
+				}
+				maxprice = parseInt(maxprice);
+				document.getElementById("bbscontent").innerHTML += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font>" + "<font color=blue>" + maxlevel * 8 * 1024 + "字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(" + maxlevel + "," + maxprice + ");><br>";
+				if (maxlevel > 199) document.getElementById("bbscontent").innerHTML += "购买200等级 原价4000猪头 现价2600猪头 <font color=red>打六五折</font> <font color=blue>1638400字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(200,2600);><br>";
+				if (maxlevel > 149) document.getElementById("bbscontent").innerHTML += "购买150等级 原价3000猪头 现价2250猪头 <font color=red>打七五折</font> <font color=blue>1228800字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(150,2250);><br>";
+				if (maxlevel > 99) document.getElementById("bbscontent").innerHTML += "购买100等级 原价2000猪头 现价1800猪头 <font color=red>打九折</font> <font color=blue>819200字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(100,1800);><br>";
+				if (maxlevel > 49) document.getElementById("bbscontent").innerHTML += "购买50等级 原价1000猪头 现价950猪头 打九五折 <font color=blue>409600字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(50,950);><br>";
+				if (maxlevel > 29) document.getElementById("bbscontent").innerHTML += "购买30等级 原价600猪头 现价588猪头 打九八折 <font color=blue>245760字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(30,588);><br>";
+				if (maxlevel > 19) document.getElementById("bbscontent").innerHTML += "购买20等级 原价400猪头 现价396猪头 打九九折 <font color=blue>163840字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(20,396);><br>";
+				if (maxlevel > 9) document.getElementById("bbscontent").innerHTML += "购买10等级 200猪头 <font color=blue>81920字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(10,200);><br>";
+				if (maxlevel > 4) document.getElementById("bbscontent").innerHTML += "购买5等级 100猪头 40960字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(5,100);><br>";
+				if (maxlevel > 2) document.getElementById("bbscontent").innerHTML += "购买3等级 60猪头 24576字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(3,60);><br>";
+				if (maxlevel > 1) document.getElementById("bbscontent").innerHTML += "购买2等级 40猪头 16384字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(2,40);><br>";
+				if (maxlevel > 0) document.getElementById("bbscontent").innerHTML += "购买1等级 20猪头 8192字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(1,20);><br>";
+				document.getElementById("bbscontent").innerHTML += "<br><br><br><input type=button value=退出 onclick=javascript:gopage(1);>";
+
+				//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+			}
+		}).
+		catch(err = >{
+			console.log(err);
+		});
+	}
+	if (n == 1) document.getElementById("bp").className = "hide-element";
+	if (n > 1) document.getElementById("bp").className = "show-element";
+	sessionStorage.setItem("page", n);
+	var content = sessionStorage.getItem("content");
+	document.getElementById("page-num").innerHTML = n;
+	if (content.length > (n - 1) * 1024) {
+		if (content.length > n * 1024) var display = content.substring((n - 1) * 1024, n * 1024);
+		else var display = content.substring((n - 1) * 1024);
+		document.getElementById("bbscontent").innerHTML = display;
+	} else gopage(1);
 }
-function fgopage()
-  {
-    var page = document.getElementById("page-num").innerHTML;
-    page = parseInt(page);
-    if (page != page)
-      page = 1;
-    gopage(page);
-  }
-  function backpage()
-  {
-    var page = sessionStorage.getItem("page");
-    page = parseInt(page);
-    page--;
-    gopage(page);
-  }
-  function nextpage()
-  {
-    var page = sessionStorage.getItem("page");
-    page = parseInt(page);
-    page++;
-    gopage(page);
-  }
-  if (sessionStorage.getItem("updatetime") == null)
-     sessionStorage.setItem("updatetime",new Date().getTime());
-  function submitform()
-  {
-    var form = document.getElementById("form").innerHTML;
-    form = form.replace(/<div>/g,"");
-    form = form.replace(/<\/div>/g,"");
-    form = form.replace(/<br>/g,"\n");
-    form = form.replace(/&/g,"&amp;");
-    form = form.replace(/</g,"&lt;");
-    form = form.replace(/>/g,"&gt;");
-    form = form.replace(/\s/g,"&nbsp;");
-    form = form.replace(/\'/g,"&#39;");
-    form = form.replace(/\"/g,"&quot;");
-    form = form.replace(/\n/g,"<br>");
-    if (form.length > 140)
-    {
-      alert("输入过长！");
-      return;
-    }
-    if (checkrobot())
-    {
-      alert("请等待30秒再发送");
-      return;
-    }
-    if (sessionStorage.getItem("captcha") == null)
-    {
-      alert("请填写验证码");
-      return;
-    }
-    var bbsid = location.hash.substring(1);
-    const query = Bmob.Query("chat");
-    query.get(bbsid).then(res => {
-      console.log(res);
-      var content = res.content;
-      content = "[" + sessionStorage.getItem("username") + "]" + "<font color=red>" + new Date() + "</font><br>" + form + "<hr>" + content;
-      var lever = res.lever;
-      if (lever == "free")
-        lever = 0;
-      if (content.length > (8 * 1024 * (lever + 1)))
-          {
-              alert("数据库存储已达上限\n请升级数据库储存空间");
-              gopage(0);
-              return;
-    }
-                          query.set("id",res.objectId);
-                          query.set("content",content);
-                          query.save().then(res => {
-                              alert("发送成功！");
-                              sessionStorage.setItem("content",content);
-                              document.getElementById("form").innerHTML = "";
-                              gopage(1);
-                          }).catch(err => {
-                            console.log(err);
-                            alert("发送失败！");
-                          });
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-  function buyspace(space_level,need_pigcoin)
-  {
-    var pigcoin = sessionStorage.getItem("pigcoin");
-    pigcoin = parseInt(pigcoin);
-    document.getElementById("bbscontent").innerHTML = "<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：" + pigcoin + "个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>";
-  }
-  function submit_form_buyspace(space_level,need_pigcoin)
-  {
-    var bbsid = location.hash.substring(1);
-    var uuid = sessionStorage.getItem("uuid");
-    const chatinfo = Bmob.Query("chat");
-    const query = Bmob.Query("userinfo");
-    query.get(uuid).then(res => {
-      console.log(res);
-      var userinfo = res;
-      sessionStorage.setItem("pigcoin",userinfo.pigcoin);
-      sessionStorage.setItem("use4image",userinfo.use4image);
-      sessionStorage.setItem("useHTML",userinfo.useHTML);
-      sessionStorage.setItem("BBSnum",userinfo.BBSnum);
-      if (need_pigcoin > userinfo.pigcoin)
-        document.getElementById("get-status").innerHTML = "<font color=red>交易失败！您的猪头不足<input type=button value=点我充值 onclick=javascript:window.open('https://chenglan28.github.io/avs-account/pigcoin');></font>";
-      else {
-        chatinfo.get(bbsid).then(res => {
-          var bbsinfo = res;
-          bbsinfo.level = bbsinfo.lever;
-          sessionStorage.setItem("lever",bbsinfo.level);
-          if (bbsinfo.level == "free")
-            bbsinfo.level = 0;
-          var maxlevel = 255 - bbsinfo.level;
-          if (space_level > maxlevel)
-          {
-            document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font>";
-            return;
-          }
-          userinfo.pigcoin -= need_pigcoin;
-          bbsinfo.level += space_level;
-          chatinfo.set("id",bbsid);
-          chatinfo.set("lever",bbsinfo.level);
-          query.set("id",uuid);
-          query.set("pigcoin",userinfo.pigcoin);
-          sessionStorage.setItem("pigcoin",userinfo.pigcoin);
-          sessionStorage.setItem("lever",bbsinfo.level);
-          query.save().then(res => {
-            console.log(res);
-            chatinfo.save().then(res => {
-              document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
-            }).catch(err => {
-              console.log(err);
-              document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
-              bbsinfo.level -= space.level;
-              sessionStorage.setItem("lever",bbsinfo.level);
-              userinfo.pigcoin += need_pigcoin;
-              sessionStorage.setItem("pigcoin",userinfo.pigcoin);
-              query.set("id",uuid);
-              query.set("pigcoin",userinfo.pigcoin);
-              query.save().then(res => {
-                console.log(res);
-                document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销成功！</font>";
-              }).catch(err => {
-                console.log(err);
-                var num = encodeURI(uuid) + "pdjcp" + btoa(uuid) + "ps3rp" + btoa((pigcoin * 10 + 8) * 2 - 18) + "pdatep" + btoa(encodeURI(new Date()));
-                document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销失败！<br>请把此页截图发送给<a href=fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a><br>我们稍后便会处理<br>事件ID:<font color=blue>" + num + "</font></font>";
-              });
-          }).catch(err => {
-            console.log(err);
-            document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
-            });
-        }).catch(err => {
-          console.log(err);
-          document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
-      });
-    }).catch(err => {
-      console.log(err);
-      document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
-    });
-      
-    }
+function fgopage() {
+	var page = document.getElementById("page-num").innerHTML;
+	page = parseInt(page);
+	if (page != page) page = 1;
+	gopage(page);
+}
+function backpage() {
+	var page = sessionStorage.getItem("page");
+	page = parseInt(page);
+	page--;
+	gopage(page);
+}
+function nextpage() {
+	var page = sessionStorage.getItem("page");
+	page = parseInt(page);
+	page++;
+	gopage(page);
+}
+if (sessionStorage.getItem("updatetime") == null) sessionStorage.setItem("updatetime", new Date().getTime());
+function submitform() {
+	var form = document.getElementById("form").innerHTML;
+	form = form.replace(/<div>/g, "");
+	form = form.replace(/<\/div>/g, "");
+	form = form.replace(/<br>/g, "\n");
+	form = form.replace(/&/g, "&amp;");
+	form = form.replace(/</g, "&lt;");
+	form = form.replace(/>/g, "&gt;");
+	form = form.replace(/\s/g, "&nbsp;");
+	form = form.replace(/\'/g, "&#39;");
+	form = form.replace(/\"/g, "&quot;");
+	form = form.replace(/\n/g, "<br>");
+	if (form.length > 140) {
+		alert("输入过长！");
+		return;
+	}
+	if (checkrobot()) {
+		alert("请等待30秒再发送");
+		return;
+	}
+	if (sessionStorage.getItem("captcha") == null) {
+		alert("请填写验证码");
+		return;
+	}
+	var bbsid = location.hash.substring(1);
+	const query = Bmob.Query("chat");
+	query.get(bbsid).then(res = >{
+		console.log(res);
+		var content = res.content;
+		content = "[" + sessionStorage.getItem("username") + "]" + "<font color=red>" + new Date() + "</font><br>" + form + "<hr>" + content;
+		var lever = res.lever;
+		if (lever == "free") lever = 0;
+		if (content.length > (8 * 1024 * (lever + 1))) {
+			alert("数据库存储已达上限\n请升级数据库储存空间");
+			gopage(0);
+			return;
+		}
+		query.set("id", res.objectId);
+		query.set("content", content);
+		query.save().then(res = >{
+			alert("发送成功！");
+			sessionStorage.setItem("content", content);
+			document.getElementById("form").innerHTML = "";
+			gopage(1);
+		}).
+		catch(err = >{
+			console.log(err);
+			alert("发送失败！");
+		});
+	}).
+	catch(err = >{
+		console.log(err);
+	});
+}
+function buyspace(space_level, need_pigcoin) {
+	var pigcoin = sessionStorage.getItem("pigcoin");
+	pigcoin = parseInt(pigcoin);
+	document.getElementById("bbscontent").innerHTML = "<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：" + pigcoin + "个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>";
+}
+function submit_form_buyspace(space_level, need_pigcoin) {
+	var bbsid = location.hash.substring(1);
+	var uuid = sessionStorage.getItem("uuid");
+	const chatinfo = Bmob.Query("chat");
+	const query = Bmob.Query("userinfo");
+	query.get(uuid).then(res = >{
+		console.log(res);
+		var userinfo = res;
+		sessionStorage.setItem("pigcoin", userinfo.pigcoin);
+		sessionStorage.setItem("use4image", userinfo.use4image);
+		sessionStorage.setItem("useHTML", userinfo.useHTML);
+		sessionStorage.setItem("BBSnum", userinfo.BBSnum);
+		if (need_pigcoin > userinfo.pigcoin) document.getElementById("get-status").innerHTML = "<font color=red>交易失败！您的猪头不足<input type=button value=点我充值 onclick=javascript:window.open('https://chenglan28.github.io/avs-account/pigcoin');></font>";
+		else {
+			chatinfo.get(bbsid).then(res = >{
+				var bbsinfo = res;
+				bbsinfo.level = bbsinfo.lever;
+				sessionStorage.setItem("lever", bbsinfo.level);
+				if (bbsinfo.level == "free") bbsinfo.level = 0;
+				var maxlevel = 255 - bbsinfo.level;
+				if (space_level > maxlevel) {
+					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font>";
+					return;
+				}
+				userinfo.pigcoin -= need_pigcoin;
+				bbsinfo.level += space_level;
+				chatinfo.set("id", bbsid);
+				chatinfo.set("lever", bbsinfo.level);
+				query.set("id", uuid);
+				query.set("pigcoin", userinfo.pigcoin);
+				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
+				sessionStorage.setItem("lever", bbsinfo.level);
+				query.save().then(res = >{
+					console.log(res);
+					chatinfo.save().then(res = >{
+						document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
+					}).
+					catch(err = >{
+						console.log(err);
+						document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
+						bbsinfo.level -= space.level;
+						sessionStorage.setItem("lever", bbsinfo.level);
+						userinfo.pigcoin += need_pigcoin;
+						sessionStorage.setItem("pigcoin", userinfo.pigcoin);
+						query.set("id", uuid);
+						query.set("pigcoin", userinfo.pigcoin);
+						query.save().then(res = >{
+							console.log(res);
+							document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销成功！</font>";
+						}).
+						catch(err = >{
+							console.log(err);
+							var num = encodeURI(uuid) + "pdjcp" + btoa(uuid) + "ps3rp" + btoa((pigcoin * 10 + 8) * 2 - 18) + "pdatep" + btoa(encodeURI(new Date()));
+							document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销失败！<br>请把此页截图发送给<a href=fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a><br>我们稍后便会处理<br>事件ID:<font color=blue>" + num + "</font></font>";
+						});
+					});
+				}).
+				catch(err = >{
+					console.log(err);
+					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+				});
+			}).
+			catch(err = >{
+				console.log(err);
+				document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+			});
+		}
+	}).
+	catch(err = >{
+		console.log(err);
+		document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+	});
+
+}
 </script>
   <style>
     .hide-element {
