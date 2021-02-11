@@ -288,14 +288,15 @@ function fgopage()
           }).catch(err => {
             console.log(err);
             document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+            });
         }).catch(err => {
           console.log(err);
           document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
-      }
+      });
     }).catch(err => {
       console.log(err);
       document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
-    }
+    });
 </script>
   <style>
     .hide-element {
