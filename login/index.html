@@ -8,12 +8,29 @@
 密码<input type=password maxlength=16 id=password placeholder=Password>
 <input type=button value='没有账号？点我注册' onclick=javascript:goreg();>
 <input type=button value=提交 onclick=javascript:login();>
+<input type=radio value=记住密码 onclick=javascript:'boo != boo'>
 <script>
+var boo = false;
+var p_username = localStorage.getItem("pre-username");
+var p_password = localStorage.getItem("pre-password");
+if (p_username != null && p_password != null)
+{
+  document.getElementById("username").value = p_username;
+  document.getElementById("password").value = p_password;
+}
 function login()
 {
   sessionStorage.removeItem("captcha");
   sessionStorage.setItem("pre-username",document.getElementById("username").value);
   sessionStorage.setItem("pre-password",document.getElementById("password").value);
+  if (boo)
+  {
+    localStorage.setItem("pre-username",document.getElementById("username").value);
+    localStorage.setItem("pre-password",document.getElementById("password").value);
+  } else {
+    localStorage.removeItem("pre-username");
+    localStorage.removeItem("pre-password");
+  }
   var hash = location.hash;
   location.href="save-login.html" + hash;
 }
