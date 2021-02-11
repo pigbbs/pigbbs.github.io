@@ -168,7 +168,10 @@ function submitform() {
 	}
 	if (b)
 		return;
-	if (form.length > 140) {
+	var submit_limit = (parseInt(sessionStorage.getItem("level")) + 1) * 140;
+	if (submit_limit > 2048)
+		submit_limit = 2048;
+	if (form.length > submit_limit) {
 		alert("输入过长！");
 		return;
 	}
