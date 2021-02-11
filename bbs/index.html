@@ -196,7 +196,7 @@ function submitform() {
 function buyspace(space_level, need_pigcoin) {
 	var pigcoin = sessionStorage.getItem("pigcoin");
 	pigcoin = parseInt(pigcoin);
-	document.getElementById("bbscontent").innerHTML = "<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：" + pigcoin + "个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>";
+	document.getElementById("bbscontent").innerHTML = "<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：<span id=my-pigcoin>" + pigcoin + "</span>个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>";
 }
 function submit_form_buyspace(space_level, need_pigcoin) {
 	var bbsid = location.hash.substring(1);
@@ -207,6 +207,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		console.log(res);
 		var userinfo = res;
 		sessionStorage.setItem("pigcoin", userinfo.pigcoin);
+		document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
 		sessionStorage.setItem("use4image", userinfo.use4image);
 		sessionStorage.setItem("useHTML", userinfo.useHTML);
 		sessionStorage.setItem("BBSnum", userinfo.BBSnum);
@@ -227,21 +228,26 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				bbsinfo.level += space_level;
 				chatinfo.set("id", bbsid);
 				chatinfo.set("level", bbsinfo.level);
+				document.getElementById("bbs-level").innerHTML = bbsinfo.level;
 				query.set("id", uuid);
 				query.set("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
+				document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
 				sessionStorage.setItem("level", bbsinfo.level.toString());
 				query.save().then(res =>{
 					console.log(res);
 					chatinfo.save().then(res =>{
+						document.getElementById("bbs-level").innerHTML = bbsinfo.level;
 						document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
 					}).
 					catch(err =>{
 						console.log(err);
 						document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
 						bbsinfo.level -= space_level;
+						document.getElementById("bbs-level").innerHTML = bbsinfo.level;
 						sessionStorage.setItem("level", bbsinfo.level);
 						userinfo.pigcoin += need_pigcoin;
+						document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
 						sessionStorage.setItem("pigcoin", userinfo.pigcoin);
 						query.set("id", uuid);
 						query.set("pigcoin", userinfo.pigcoin);
