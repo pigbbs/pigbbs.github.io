@@ -212,6 +212,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				bbsinfo.level = bbsinfo.lever;
 				sessionStorage.setItem("lever", bbsinfo.level);
 				if (bbsinfo.level == "free") bbsinfo.level = 0;
+				else bbsinfo.level = parseInt(bbsinfo.level);
 				var maxlevel = 255 - bbsinfo.level;
 				if (space_level > maxlevel) {
 					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font>";
@@ -224,7 +225,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				query.set("id", uuid);
 				query.set("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
-				sessionStorage.setItem("lever", bbsinfo.level);
+				sessionStorage.setItem("lever", bbsinfo.level.toString());
 				query.save().then(res =>{
 					console.log(res);
 					chatinfo.save().then(res =>{
