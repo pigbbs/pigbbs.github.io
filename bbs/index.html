@@ -8,7 +8,7 @@ checklogin();
 <center><pre>
 <span style='font-size:3em'>猪猪留言板 - BBSID:<span id=bbsid></span></span>
 <a href=/>返回主页</a>
-  BBS等级：<span id=bbs-lever></span>
+  BBS等级：<span id=bbs-level></span>
 <table border=10><tr><td><span id=bbscontent></span></td></tr></table>
 <pre id=page><input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=升级留言板 onclick=javascript:gopage(0);></pre>
 请输入您要发送的文字<br><pre id=form contenteditable=true>嗨！大咖，你们好啊！</pre>
@@ -29,8 +29,11 @@ var query = Bmob.Query("chat");
 query.get(bbsid).then(res =>{
 	console.log(res);
 	sessionStorage.setItem("content", res.content);
-	sessionStorage.setItem("lever", res.lever);
-	document.getElementById("bbs-lever").innerHTML = res.lever;
+	sessionStorage.setItem("level", res.level);
+	var dislevel = res.level;
+	dislevel = parseInt(dislevel);
+	if (!dislevel) dislevel = "free";
+	document.getElementById("bbs-level").innerHTML = dislevel;
 	gopage(1);
 }).
 catch(err =>{
@@ -51,13 +54,15 @@ function gopage(n) {
 		query.get(bbsid).then(res =>{
 			console.log(res);
 			sessionStorage.setItem("content", res.content);
-			sessionStorage.setItem("level", res.lever);
-			if ((res.lever + 1) * 8 == 2 * 1024) document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
+			sessionStorage.setItem("level", res.level);
+			if ((res.level + 1) * 8 == 2 * 1024) document.getElementById("bbscontent").innerHTML = "该留言板的等级已经是最高，无法升级";
 			else {
-				var level = res.lever;
+				var level = res.level;
 				if (level == "free") level = 0;
 				else level = parseInt(level);
-				document.getElementById("bbscontent").innerHTML = "留言板等级：" + level + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
+				var dislevel = level;
+				if (!dislevel) dislevel = 0;
+				document.getElementById("bbscontent").innerHTML = "留言板等级：" + dislevel + "<br>等级上限：" + (2 * 1024 / 8 - 1) + "<br>交易价格<br>";
 				var maxlevel = (2 * 1024 / 8 - 1 - level);
 				var maxnum;
 				var maxprice = maxlevel * 20;
@@ -164,9 +169,9 @@ function submitform() {
 		console.log(res);
 		var content = res.content;
 		content = "[" + sessionStorage.getItem("username") + "]" + "<font color=red>" + new Date() + "</font><br>" + form + "<hr>" + content;
-		var lever = res.lever;
-		if (lever == "free") lever = 0;
-		if (content.length > (8 * 1024 * (lever + 1))) {
+		var level = res.level;
+		if (level == "free") level = 0;
+		if (content.length > (8 * 1024 * (level + 1))) {
 			alert("数据库存储已达上限\n请升级数据库储存空间");
 			gopage(0);
 			return;
@@ -209,8 +214,8 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		else {
 			chatinfo.get(bbsid).then(res =>{
 				var bbsinfo = res;
-				bbsinfo.level = bbsinfo.lever;
-				sessionStorage.setItem("lever", bbsinfo.level);
+				bbsinfo.level = bbsinfo.level;
+				sessionStorage.setItem("level", bbsinfo.level);
 				if (bbsinfo.level == "free") bbsinfo.level = 0;
 				else bbsinfo.level = parseInt(bbsinfo.level);
 				var maxlevel = 255 - bbsinfo.level;
@@ -221,11 +226,11 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				userinfo.pigcoin -= need_pigcoin;
 				bbsinfo.level += space_level;
 				chatinfo.set("id", bbsid);
-				chatinfo.set("lever", bbsinfo.level);
+				chatinfo.set("level", bbsinfo.level);
 				query.set("id", uuid);
 				query.set("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
-				sessionStorage.setItem("lever", bbsinfo.level.toString());
+				sessionStorage.setItem("level", bbsinfo.level.toString());
 				query.save().then(res =>{
 					console.log(res);
 					chatinfo.save().then(res =>{
@@ -235,7 +240,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 						console.log(err);
 						document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
 						bbsinfo.level -= space_level;
-						sessionStorage.setItem("lever", bbsinfo.level);
+						sessionStorage.setItem("level", bbsinfo.level);
 						userinfo.pigcoin += need_pigcoin;
 						sessionStorage.setItem("pigcoin", userinfo.pigcoin);
 						query.set("id", uuid);
