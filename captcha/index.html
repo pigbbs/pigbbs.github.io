@@ -19,7 +19,7 @@ function submitcaptcha()
         if (url == null || typeof url == "undefined" || url == "" || url == "#")
           location.href = "/";
         else
-          location.href = url.substring(1);
+          location.href = unescape(url.substring(1));
     } else {
          alert("验证码错误！");
          newcaptcha("captchacanvas");
