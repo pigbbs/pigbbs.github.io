@@ -226,8 +226,76 @@ function fgopage()
   {
     var pigcoin = sessionStorage.getItem("pigcoin");
     pigcoin = parseInt(pigcoin);
-    document.getElementById("bbscontent").innerHTML = "<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：" + pigcoin + "个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>";
+    document.getElementById("bbscontent").innerHTML = "<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：" + pigcoin + "个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>";
   }
+  function submit_form_buyspace(space_level,need_pigcoin)
+  {
+    var bbsid = location.hash.substring(1);
+    var uuid = sessionStorage.getItem("uuid");
+    const chatinfo = Bmob.Query("chat");
+    const query = Bmob.Query("userinfo");
+    query.get(uuid).then(res => {
+      console.log(res);
+      var userinfo = res;
+      sessionStorage.setItem("pigcoin",userinfo.pigcoin);
+      sessionStorage.setItem("use4image",userinfo.use4image);
+      sessionStorage.setItem("useHTML",userinfo.useHTML);
+      sessionStorage.setItem("BBSnum",userinfo.BBSnum);
+      if (need_pigcoin > userinfo.pigcoin)
+        document.getElementById("get-status").innerHTML = "<font color=red>交易失败！您的猪头不足<input type=button value=点我充值 onclick=javascript:window.open('https://chenglan28.github.io/avs-account/pigcoin');></font>";
+      else {
+        chatinfo.get(bbsid).then(res => {
+          var bbsinfo = res;
+          bbsinfo.level = bbsinfo.lever;
+          sessionStorage.setItem("lever",bbsinfo.level);
+          if (bbsinfo.level == "free")
+            bbsinfo.level = 0;
+          var maxlevel = 255 - bbsinfo.level;
+          if (space_level > maxlevel)
+          {
+            document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font>";
+            return;
+          }
+          userinfo.pigcoin -= need_pigcoin;
+          bbsinfo.level += space_level;
+          chatinfo.set("id",bbsid);
+          chatinfo.set("lever",bbsinfo.level);
+          query.set("id",uuid);
+          query.set("pigcoin",userinfo.pigcoin);
+          sessionStorage.setItem("pigcoin",userinfo.pigcoin);
+          sessionStorage.setItem("lever",bbsinfo.level);
+          query.save().then(res => {
+            console.log(res);
+            chatinfo.save().then(res => {
+              document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
+            }).catch(err => {
+              console.log(err);
+              document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
+              bbsinfo.level -= space.level;
+              sessionStorage.setItem("lever",bbsinfo.level);
+              userinfo.pigcoin += need_pigcoin;
+              sessionStorage.setItem("pigcoin",userinfo.pigcoin);
+              query.set("id",uuid);
+              query.set("pigcoin",userinfo.pigcoin);
+              query.save().then(res => {
+                console.log(res);
+                document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销成功！</font>";
+              }).catch(err => {
+                console.log(err);
+                var num = encodeURI(uuid) + "pdjcp" + btoa(uuid) + "ps3rp" + btoa((pigcoin * 10 + 8) * 2 - 18) + "pdatep" + btoa(encodeURI(new Date()));
+                document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销失败！<br>请把此页截图发送给<a href=fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a><br>我们稍后便会处理<br>事件ID:<font color=blue>" + num + "</font></font>";
+              });
+          }).catch(err => {
+            console.log(err);
+            document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+        }).catch(err => {
+          console.log(err);
+          document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+      }
+    }).catch(err => {
+      console.log(err);
+      document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+    }
 </script>
   <style>
     .hide-element {
