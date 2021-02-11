@@ -175,6 +175,7 @@ function submitform() {
 	if (form.length < 10)
 	{
 		alert("输入过短！至少10个字");
+		return;
 	}
 	if (checkrobot()) {
 		alert("请等待30秒再发送");
