@@ -26,14 +26,14 @@ console.log(bbsid);
 document.getElementById("qr-code").src = "https://api.no0a.cn/api/qrcode/query?url=https://pigbbs.github.io/bbs/join.html?bbsid=" + bbsid;
 document.getElementById("bbsid").innerHTML = bbsid;
 var query = Bmob.Query("chat");
-query.get(bbsid).then(res = >{
+query.get(bbsid).then(res =>{
 	console.log(res);
 	sessionStorage.setItem("content", res.content);
 	sessionStorage.setItem("lever", res.lever);
 	document.getElementById("bbs-lever").innerHTML = res.lever;
 	gopage(1);
 }).
-catch(err = >{
+catch(err =>{
 	console.log(err);
 	if (err.code == 101) location.href = "/";
 });
@@ -48,7 +48,7 @@ function gopage(n) {
 		document.getElementById("np").className = "hide-element";
 		var bbsid = location.hash.substring(1);
 		const query = Bmob.Query("chat");
-		query.get(bbsid).then(res = >{
+		query.get(bbsid).then(res =>{
 			console.log(res);
 			sessionStorage.setItem("content", res.content);
 			sessionStorage.setItem("level", res.lever);
@@ -100,7 +100,7 @@ function gopage(n) {
 				//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 			}
 		}).
-		catch(err = >{
+		catch(err =>{
 			console.log(err);
 		});
 	}
@@ -160,7 +160,7 @@ function submitform() {
 	}
 	var bbsid = location.hash.substring(1);
 	const query = Bmob.Query("chat");
-	query.get(bbsid).then(res = >{
+	query.get(bbsid).then(res =>{
 		console.log(res);
 		var content = res.content;
 		content = "[" + sessionStorage.getItem("username") + "]" + "<font color=red>" + new Date() + "</font><br>" + form + "<hr>" + content;
@@ -173,18 +173,18 @@ function submitform() {
 		}
 		query.set("id", res.objectId);
 		query.set("content", content);
-		query.save().then(res = >{
+		query.save().then(res =>{
 			alert("发送成功！");
 			sessionStorage.setItem("content", content);
 			document.getElementById("form").innerHTML = "";
 			gopage(1);
 		}).
-		catch(err = >{
+		catch(err =>{
 			console.log(err);
 			alert("发送失败！");
 		});
 	}).
-	catch(err = >{
+	catch(err =>{
 		console.log(err);
 	});
 }
@@ -198,7 +198,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 	var uuid = sessionStorage.getItem("uuid");
 	const chatinfo = Bmob.Query("chat");
 	const query = Bmob.Query("userinfo");
-	query.get(uuid).then(res = >{
+	query.get(uuid).then(res =>{
 		console.log(res);
 		var userinfo = res;
 		sessionStorage.setItem("pigcoin", userinfo.pigcoin);
@@ -207,7 +207,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		sessionStorage.setItem("BBSnum", userinfo.BBSnum);
 		if (need_pigcoin > userinfo.pigcoin) document.getElementById("get-status").innerHTML = "<font color=red>交易失败！您的猪头不足<input type=button value=点我充值 onclick=javascript:window.open('https://chenglan28.github.io/avs-account/pigcoin');></font>";
 		else {
-			chatinfo.get(bbsid).then(res = >{
+			chatinfo.get(bbsid).then(res =>{
 				var bbsinfo = res;
 				bbsinfo.level = bbsinfo.lever;
 				sessionStorage.setItem("lever", bbsinfo.level);
@@ -225,12 +225,12 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				query.set("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("lever", bbsinfo.level);
-				query.save().then(res = >{
+				query.save().then(res =>{
 					console.log(res);
-					chatinfo.save().then(res = >{
+					chatinfo.save().then(res =>{
 						document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
 					}).
-					catch(err = >{
+					catch(err =>{
 						console.log(err);
 						document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
 						bbsinfo.level -= space.level;
@@ -239,29 +239,29 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 						sessionStorage.setItem("pigcoin", userinfo.pigcoin);
 						query.set("id", uuid);
 						query.set("pigcoin", userinfo.pigcoin);
-						query.save().then(res = >{
+						query.save().then(res =>{
 							console.log(res);
 							document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销成功！</font>";
 						}).
-						catch(err = >{
+						catch(err =>{
 							console.log(err);
 							var num = encodeURI(uuid) + "pdjcp" + btoa(uuid) + "ps3rp" + btoa((pigcoin * 10 + 8) * 2 - 18) + "pdatep" + btoa(encodeURI(new Date()));
 							document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销失败！<br>请把此页截图发送给<a href=fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a><br>我们稍后便会处理<br>事件ID:<font color=blue>" + num + "</font></font>";
 						});
 					});
 				}).
-				catch(err = >{
+				catch(err =>{
 					console.log(err);
 					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
 				});
 			}).
-			catch(err = >{
+			catch(err =>{
 				console.log(err);
 				document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
 			});
 		}
 	}).
-	catch(err = >{
+	catch(err =>{
 		console.log(err);
 		document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
 	});
