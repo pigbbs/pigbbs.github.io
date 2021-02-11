@@ -233,7 +233,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 					catch(err =>{
 						console.log(err);
 						document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
-						bbsinfo.level -= space.level;
+						bbsinfo.level -= space_level;
 						sessionStorage.setItem("lever", bbsinfo.level);
 						userinfo.pigcoin += need_pigcoin;
 						sessionStorage.setItem("pigcoin", userinfo.pigcoin);
