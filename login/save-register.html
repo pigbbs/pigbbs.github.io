@@ -34,6 +34,7 @@ query.save().then(res => {
     sessionStorage.setItem("username",username);
     sessionStorage.setItem("uuid",uuid);
     sessionStorage.setItem("usertype","user");
+    sessionStorage.setItem("pigcoin",0);
     users[users.length] = uuid;
     localStorage.setItem("users",JSON.stringify(users));
     var hash = decodeURI(location.hash.substring(1));
