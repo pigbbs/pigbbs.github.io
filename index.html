@@ -67,7 +67,7 @@
    var username = sessionStorage.getItem("username");
    var uuid = sessionStorage.getItem("uuid");
    if (uuid != null && username != null)
-   document.getElementById("username-box").innerHTML = "用户名：" + username + "<br>UUID:" + uuid + "<input type=button value=退出登录 onclick=javascript:logout();>";
+   document.getElementById("username-box").innerHTML = "用户名：" + username + "<br>UUID:" + uuid + "<br><input type=button value=退出登录 onclick=javascript:logout();>";
    function logout()
    {
    localStorage.removeItem("bmob");
