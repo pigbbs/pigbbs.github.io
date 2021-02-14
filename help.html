@@ -22,7 +22,7 @@ font-size:20px;
     var bbsid = document.getElementById("bbsid_send_mail").value;
     var mailid = document.getElementById("bbsid_mymail").value;
     var elementobj = document.createElement("a");
-    elementobj.src = "mailto:pigbbs@outlook.com?head=申请把自己的BBS放到主页上&body=申请把自己的BBS放到主页上%0ABBSID:" + bbsid + "%0AE-mail:" + mailid + "%0A发送时间：" + new Date();
+    elementobj.href = "mailto:pigbbs@outlook.com?head=申请把自己的BBS放到主页上&body=申请把自己的BBS放到主页上%0ABBSID:" + bbsid + "%0AE-mail:" + mailid + "%0A发送时间：" + new Date();
     elementobj.click();
   }
 </script>
