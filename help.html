@@ -7,19 +7,22 @@ font-size:50px;
 font-size:20px;
 }
 </style>
+<center><pre>
 <span class="title">我想把自己留言板放到PigBBS主页上</span>
 <br>
 <span class="text">向pigbbs@outlook.com邮箱发送PigBBS的BBSID即可</span>
+<br>
 申请的BBSID <input type=text maxlength=32 id=bbsid_send_mail placeholder=BBSID>
 联系邮箱 <input type=text maxlength=32 id=bbsid_mymail placeholder=user@example.com>
 <input type=button value=申请 onclick=javascript:bbsid_send_mail();>
 我们会在七个工作日内处理你的请求
+</pre></center>
 <script>
   function bbsid_send_mail(){
     var bbsid = document.getElementById("bbsid_send_mail").value;
     var mailid = document.getElementById("bbsid_mymail").value;
     var elementobj = document.createElement("a");
-    elementobj.src = "mailto:pigbbs@outlook.com?head=申请把自己的BBS放到主页上&body=申请把自己的BBS放到主页上%0ABBSID:" + bbsid + "%0AE-mail:" + mailid + "%0A发送时间：" + new Date()";
+    elementobj.src = "mailto:pigbbs@outlook.com?head=申请把自己的BBS放到主页上&body=申请把自己的BBS放到主页上%0ABBSID:" + bbsid + "%0AE-mail:" + mailid + "%0A发送时间：" + new Date();
     elementobj.click();
   }
 </script>
