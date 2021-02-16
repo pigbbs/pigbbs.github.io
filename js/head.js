@@ -27,7 +27,7 @@ function checkrobot()
 function mourning(){
    var obj = document.getElementById("mourning-Dennis-Ritchie");
    var audio_element = document.createElement("audio");
-   audio_element.src = "http://www.js.xinhuanet.com/jsstatics/gongji/3.wav";
+   audio_element.src = "https://pig-cmd.github.io/upload_file/clock.wav";
    audio_element.onload = function(){
       audio_element.play();
    };
