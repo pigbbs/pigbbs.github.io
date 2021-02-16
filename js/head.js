@@ -46,10 +46,18 @@ function mourning(){
       audio_element.play();
    },30 * 1000);
 };
+function page_gray()
+{
+   document.body.innerHTML += "<style>html {-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);  -ms-filter: grayscale(100%);    -o-filter: grayscale(100%);    filter: grayscale(100%);    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); }</style>";
+}
 function close_mourning_box()
 {
    document.getElementById("mourning-Dennis-Ritchie").ClassName = "hide-element";
 }
 var d = new Date();
 if (d.getMonth() == 9 && d.getDate() == 12)
-   mourning();
+{
+   page_gray();
+   if (location.href == "https://pigbbs.github.io/")
+      mourning();
+}
