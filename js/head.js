@@ -27,7 +27,7 @@ function checkrobot()
 function mourning(){
    var obj = document.getElementById("mourning-Dennis-Ritchie");
    obj.className = "show-element";
-   var dobj = new Date();
+   var d = new Date();
    var date = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日";
    obj.innerHTML = "<center><pre>今天是 <strong>" + date + "</strong></pre></center>";
 };
