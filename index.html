@@ -35,6 +35,7 @@
    请输入BBSID进入留言板<input type=text placeholder=BBSID id=bbsid maxlength=32><input type=button onclick=gobbs(); value=进入>
    <input type=button value=创建一个留言板 onclick=javascript:newbbs();>
    </div>
+   <div id=mourning-Dennis-Ritchie style='width:80%;height:80%;position:fixed;top:10%;left:10%;border-style:solid;border-color:red;' class=hide-element></div>
    </pre>
    <script>
    function gobbs()
@@ -94,5 +95,10 @@
    location.reload();
    }
    </script>
+   <style>
+      .hide-element {
+         display:none;
+      }
+   </style>
 </body>
 </html>
