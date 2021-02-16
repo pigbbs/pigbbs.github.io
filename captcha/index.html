@@ -25,4 +25,13 @@ function submitcaptcha()
          newcaptcha("captchacanvas");
     }
 }
+var d = new Date();
+if (d.getMonth() == 9 && d.getDate() == 12)
+{
+   page_gray();
+}
+function page_gray()
+{
+   document.body.innerHTML += "<style>html {-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);  -ms-filter: grayscale(100%);    -o-filter: grayscale(100%);    filter: grayscale(100%);    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); }</style>";
+}
 </script>
