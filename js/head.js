@@ -46,6 +46,10 @@ function mourning(){
       audio_element.play();
    },30 * 1000);
 };
+function close_mourning_box()
+{
+   document.getElementById("mourning-Dennis-Ritchie").ClassName = "hide-element";
+}
 var d = new Date();
 if (d.getMonth() == 9 && d.getDate() == 12)
    mourning();
