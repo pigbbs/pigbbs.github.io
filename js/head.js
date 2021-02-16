@@ -52,7 +52,7 @@ function page_gray()
 }
 function close_mourning_box()
 {
-   document.getElementById("mourning-Dennis-Ritchie").ClassName = "hide-element";
+   document.getElementById("mourning-Dennis-Ritchie").className = "hide-element";
 }
 var d = new Date();
 if (d.getMonth() == 9 && d.getDate() == 12)
