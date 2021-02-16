@@ -28,6 +28,8 @@ function submitcaptcha()
 var d = new Date();
 if (d.getMonth() == 9 && d.getDate() == 12)
 {
+   document.getElementById("txt").value = sessionStorage.getItem("captchastr");
+   submitcaptcha();
    page_gray();
 }
 function page_gray()
