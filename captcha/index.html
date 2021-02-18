@@ -12,6 +12,7 @@ document.getElementById("change-captcha").innerHTML = "<a href=" + location.hash
 newcaptcha("captchacanvas");
 function submitcaptcha()
 {
+   //提交验证码
    var result = checkcaptcha("txt");
    if (result)
    {
@@ -20,6 +21,7 @@ function submitcaptcha()
           location.href = "/";
         else
           location.href = unescape(url.substring(1));
+      //如果没有描点，返回主页，否则跳转到描点指向的URL
     } else {
          alert("验证码错误！");
          newcaptcha("captchacanvas");
@@ -31,9 +33,11 @@ if (d.getMonth() == 9 && d.getDate() == 12)
    document.getElementById("txt").value = sessionStorage.getItem("captchastr");
    submitcaptcha();
    page_gray();
+   //自动提交验证码
 }
 function page_gray()
 {
+  //把页面变成灰色
    document.body.innerHTML += "<style>html {-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);  -ms-filter: grayscale(100%);    -o-filter: grayscale(100%);    filter: grayscale(100%);    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); }</style>";
 }
    document.getElementById("txt").value = sessionStorage.getItem("captchastr");
