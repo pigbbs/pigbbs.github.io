@@ -16,6 +16,7 @@ setInterval(function(){
   {
     boo = !boo;
     sessionStorage.removeItem("p");
+    //判断记住密码是否被点击
   }
 },200);
   
@@ -23,6 +24,7 @@ var p_username = localStorage.getItem("pre-username");
 var p_password = localStorage.getItem("pre-password");
 if (p_username != null && p_password != null)
 {
+  //是否要记住密码，如果要，填写用户名和密码
   document.getElementById("s-p").checked = true;
   document.getElementById("username").value = p_username;
   document.getElementById("password").value = p_password;
@@ -32,6 +34,7 @@ function login()
   sessionStorage.removeItem("captcha");
   sessionStorage.setItem("pre-username",document.getElementById("username").value);
   sessionStorage.setItem("pre-password",document.getElementById("password").value);
+  //保存用户名和密码
   if (boo)
   {
     localStorage.setItem("pre-username",document.getElementById("username").value);
@@ -42,10 +45,12 @@ function login()
   }
   var hash = location.hash;
   location.href="save-login.html" + hash;
+  //跳转到提交登录的页面
 }
 function goreg()
 {
   var hash = location.hash;
   location.href = "register.html" + hash;
+  //跳转到注册页面
 }
 </script>
