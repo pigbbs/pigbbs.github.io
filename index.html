@@ -41,33 +41,40 @@
    function gobbs()
    {
    location.href = "/bbs#" + document.getElementById("bbsid").value;
+      //重定向到BBS
    }
    function newbbs()
    {
    var n = sessionStorage.getItem("username");
    if (n == "" || n == null)
    {
-      
+      //检查用户是否登录
       alert("错误！请先登录");
       location.href = "login";
       return;
    }
    db.newbbs();
+      //调用生成留言板的函数
    var s = setTimeout(function(){
       alert("错误：留言板创建失败，无法连接数据库");
+      //连接超时
    },1000 * 20);
     var s2 = setInterval(function() {
     
        var result = sessionStorage.getItem("boardID");
         if (!(result == "" || result == null))
         {
+           //判断是否生成完毕
            result = JSON.parse(result);
            clearTimeout(s);
+           //停止倒计时
            result = result.result;
           alert("BBSID:" + result.objectId);
          clearInterval(s2);
+           //停止判断
            sessionStorage.removeItem("boardID");
           location.href = "/bbs#" + result.objectId;
+           //重定向URL
 
         }
     },200);
@@ -76,6 +83,7 @@
    var uuid = sessionStorage.getItem("uuid");
    if (uuid != null && username != null)
    document.getElementById("username-box").innerHTML = "用户名：" + username + "<br><input type=button value=退出登录 onclick=javascript:logout();>";
+      //如果用户登录，显示退出登录的按钮
    function logout()
    {
    localStorage.removeItem("bmob");
@@ -92,6 +100,7 @@
    sessionStorage.removeItem("uuid");
    sessionStorage.removeItem("usertype");
    sessionStorage.removeItem("pigcoin");
+      //清除缓存并刷新页面
    location.reload();
    }
    </script>
