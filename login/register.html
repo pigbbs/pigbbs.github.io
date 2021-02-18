@@ -16,6 +16,7 @@ setInterval(function(){
   {
     boo = !boo;
     sessionStorage.removeItem("p");
+    //判断记住密码是否被点击
   }
 },200);
 
@@ -48,7 +49,9 @@ sessionStorage.setItem("pre-password",password);
     localStorage.removeItem("pre-username");
     localStorage.removeItem("pre-password");
   }
+  //保存用户名和密码
 sessionStorage.removeItem("captcha");
 location.href = "save-register.html" + location.hash;
+  //重定向URL
 }
 </script>
