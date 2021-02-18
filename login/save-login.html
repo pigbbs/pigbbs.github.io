@@ -8,11 +8,13 @@ if (username == "" || username == null || password == null || password == "")
   location.href = "./";
 Bmob.initialize("666aff82f39ad4c7","081126");
 Bmob.User.login(username,password).then(res => {
+  //向服务器请求数据
   console.log(res);
   sessionStorage.setItem("uuid",res.uuid);
   sessionStorage.setItem("username",res.username);
   const query = Bmob.Query("userinfo");
   query.get(res.uuid).then(res => {
+    //请求基本数据
     console.log(res);
     sessionStorage.setItem("usertype",res.usertype);
     sessionStorage.setItem("pigcoin",res.pigcoin);
@@ -24,6 +26,7 @@ Bmob.User.login(username,password).then(res => {
         location.href = "/";
      else
        location.href = url;
+    //重定向URL
   }).catch(err => {
     console.log(err);
     location.reload();
