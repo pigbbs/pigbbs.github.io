@@ -9,8 +9,9 @@ checklogin();
 <span style='font-size:3em'>猪猪留言板 - BBSID:<span id=bbsid></span></span>
 <a href=/>返回主页</a>
   BBS等级：<span id=bbs-level></span>
+	<span id=bbs-space></span>
 <table border=10><tr><td><span id=bbscontent></span></td></tr></table>
-<pre id=page><input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=升级留言板 onclick=javascript:gopage(0);></pre>
+<pre id=page><input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=第1页 onclick=javascript:gopage(1);></pre>
 请输入您要发送的文字<br><pre id=form contenteditable=true>嗨！大咖，你们好啊！</pre>
   <input type=button value=发送 onclick=javascript:submitform();>
 验证码
@@ -44,11 +45,13 @@ query.get(bbsid).then(res =>{
 	if (!dislevel) dislevel = "free";
 	document.getElementById("bbs-level").innerHTML = dislevel;
 	//显示BBS等级
+	show_space();
+	//显示空间使用大小
 	gopage(1);
 	//渲染页面
 }).
 catch(err =>{
-	//如果有错误，执行一下代码
+	//如果有错误，执行以下代码
 	console.log(err);
 	if (err.code == 101) location.href = "/";
 	//错误代码==101(找不到对象)时，返回主页
@@ -244,6 +247,8 @@ function submitform() {
 			sessionStorage.setItem("content", content);
 			document.getElementById("form").innerHTML = "";
 			gopage(1);
+			show_space();
+			//显示空间使用大小
 		}).
 		catch(err =>{
 			console.log(err);
@@ -297,6 +302,8 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				chatinfo.set("level", bbsinfo.level);
 				document.getElementById("bbs-level").innerHTML = bbsinfo.level;
 				//显示留言板等级
+				show_space();
+				//显示空间使用大小
 				query.set("id", uuid);
 				query.set("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
@@ -305,6 +312,8 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				//显示用户的猪头
 				sessionStorage.setItem("level", bbsinfo.level.toString());
 				//在本地更新留言板等级
+				show_space();
+				//显示空间使用大小
 				query.save().then(res =>{
 					console.log(res);
 					//提交用户数据给服务器
@@ -324,6 +333,8 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 						//显示留言板等级
 						sessionStorage.setItem("level", bbsinfo.level);
 						//在本地更新留言板等级
+						show_space();
+						//显示空间使用大小
 						userinfo.pigcoin += need_pigcoin;
 						//增加用户的猪头
 						document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
@@ -365,6 +376,12 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 	});
 
 }
+	function show_space()
+	{
+		var current = sessionStorage.getItem("content").length;
+		var max_space = (parseInt(sessionStorage.getItem("level")) + 1) * 8 * 1024;
+		document.getElementById("bbs-space").innerHTML = "当前留言板已用<font color=red>" + current + "</font>字节<br>储存空间<font color=blue>" + max_space + "</font>字节<br>已用" + (current / max_space * 100).fixed(2) + "%<br><input type=button value=升级留言板 onclick=javascript:gopage(0);><br>";
+	}
 </script>
   <style>
     .hide-element {
