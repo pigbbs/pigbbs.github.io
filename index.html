@@ -31,8 +31,7 @@
    <a href=/bbs#78698daba5>星球起源bug反馈留言板</a>
    <a href=/bbs#c256f2d1c3>留言板5</a>
    <a href="help.html">帮助</a>
-   输入指定的BBSID进入留言板<br>
-<input type=text placeholder=BBSID id=bbsid maxlength=32><input type=button onclick=gobbs(); value=进入><br>
+<input type=text placeholder="输入指定的BBSID进入留言板" id=bbsid maxlength=32 style="width:400px;height:80px;font-size:40px"><input type=button onclick="gobbs()" value=进入 style="font-size:40px;width:120px;height:80px"><br>
    <input type=button value=创建一个留言板 onclick=newbbs()>
    </div>
    <div id=mourning-Dennis-Ritchie style='width:80%;height:80%;position:fixed;top:10%;left:10%;border-style:solid;border-color:red;background:black;color:white' class=hide-element></div>
@@ -82,7 +81,7 @@
    var username = sessionStorage.getItem("username");
    var uuid = sessionStorage.getItem("uuid");
    if (uuid != null && username != null)
-   document.getElementById("username-box").innerHTML = "用户名：" + username + "<br><input type=button value=退出登录 onclick=javascript:logout();>";
+   document.getElementById("username-box").innerHTML = "欢迎您，" + username + "<br><input type=button value=退出登录 onclick=javascript:logout();>";
       //如果用户登录，显示退出登录的按钮
    function logout()
    {
