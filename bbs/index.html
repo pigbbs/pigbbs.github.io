@@ -9,22 +9,29 @@ checklogin();
 body {width:640px}
     .hide-element {display:none}
     #form {
-       border-style:solid;
-       border-color:red;
+       border:1px solid gray;
+       width:500px;
+height:30px;
+font-size:15px;
     }
   </style>
 </style>
-<pre>
 <div style='font-size:50px'>猪猪留言板 - BBSID:<span id=bbsid></span></div>
-<a href=/ >返回主页</a>
-  BBS等级：<span id=bbs-level></span>
-	<span id=bbs-space></span>
+<div style="font-size:20px">
+<a href=/>返回主页</a>
+  Lv.<span id=bbs-level></span>
+	<div id=bbs-space></div>
+</div>
 <table border=0><tr><td><span id=bbscontent></span></td></tr></table>
-<pre id=page><input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=第1页 onclick=javascript:gopage(1);></pre>
-请输入您要发送的文字<br><pre id=form contenteditable=true>嗨！大咖，你们好啊！</pre>
+<pre id=page>
+<input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=第1页 onclick=javascript:gopage(1);>
+</pre>
+请输入您要发送的文字<br>
+<pre id=form contenteditable=true>嗨！大咖，你们好啊！</pre>
   <input type=button value=发送 onclick=javascript:submitform();>
   扫一扫二维码分享给其他人
   <img id=qr-code height=64px width=64px>
+  <iframe style="" src=https://pigbbs.github.io/captcha#/bbs/captcha-ok.html height=400px width=800px style="display:none"></iframe>
 <script>
 	/*
 	 * PIGBBS 留言板源码 Copyright Pig Mail fat-pig-2020@outlook.com
@@ -189,7 +196,7 @@ function submitform() {
 	form = form.replace(/\'/g, "&#39;");
 	form = form.replace(/\"/g, "&quot;");
 	//HTML转义
-	var arr = ["sb","250","傻逼","煞笔","傻b","奥力给","奥利给","fuck","卧槽","我操","我草","卧草","艹","tmd","他妈的","他娘的","日你","我日","脑子有问题","吃屎"];
+	var arr = ["sb","250","傻逼","煞笔","傻b","fuck","我操","我草","卧草","艹","tmd","他妈的","他娘的","日你","我日","脑子有问题","吃屎"];
 	var i = 0;
 	var b = false;
 	while (i != arr.length)
