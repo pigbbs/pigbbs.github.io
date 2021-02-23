@@ -57,7 +57,7 @@ query.save().then(res => {
     console.log(err);
     if (err.code == 202)
     {
-      alert("用户名重复");
+      alert("该用户名已被使用，建议您换一个试试");
       history.go(-2);
     }
    });
