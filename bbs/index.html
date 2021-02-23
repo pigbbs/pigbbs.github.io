@@ -182,7 +182,6 @@ function submitform() {
 	form = form.replace(/\s/g, "&nbsp;");
 	form = form.replace(/\'/g, "&#39;");
 	form = form.replace(/\"/g, "&quot;");
-	form = form.replace(/\n/g, "<br>");
 	//HTML转义
 	var arr = ["sb","250","傻逼","煞笔","傻b","奥力给","奥利给","fuck","卧槽","我操","我草","卧草","艹","tmd","他妈的","他娘的","日你","我日","脑子有问题","吃屎"];
 	var i = 0;
@@ -225,6 +224,9 @@ function submitform() {
 		alert("请填写验证码");
 		return;
 	}
+
+	form = form.replace(/\n/g, "<br>");
+        //换行符替换
 	var bbsid = location.hash.substring(1);
 	const query = Bmob.Query("chat");
 	query.get(bbsid).then(res =>{
