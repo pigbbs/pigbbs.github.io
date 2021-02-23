@@ -10,8 +10,8 @@ body {width:640px}
 <input type=password maxlength=16 id=password placeholder=密码 style="width:600px;height:120px;font-size:60px">
 <div style="font-size:40px">
 <span onclick="goreg()" style="color:red">注册</span>|<span onclick="login()" style="color:blue">登录</span>
+<input type=checkbox onclick=javascript:sessionStorage.setItem('p',1); id=s-p style="width:40px;height:40px">记住密码
 </div>
-<input type=checkbox onclick=javascript:sessionStorage.setItem('p',1); id=s-p>记住密码
 <script>
 var boo = false;
 setInterval(function(){
