@@ -19,19 +19,19 @@ font-size:15px;
 <div style='font-size:50px'>猪猪留言板 - BBSID:<span id=bbsid></span></div>
 <div style="font-size:20px">
 <a href=/>返回主页</a>
+<br>
   Lv.<span id=bbs-level></span>
 	<div id=bbs-space></div>
 </div>
+请输入您要发送的文字<br>
+<pre id=form contenteditable=true>大家好，我是新来的，请多关照</pre><input type=button value=发送 onclick=javascript:submitform(); style="width:100px;height:30px;font-size:15px">
 <table border=0><tr><td><span id=bbscontent></span></td></tr></table>
 <pre id=page>
 <input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=第1页 onclick=javascript:gopage(1);>
 </pre>
-请输入您要发送的文字<br>
-<pre id=form contenteditable=true>嗨！大咖，你们好啊！</pre>
-  <input type=button value=发送 onclick=javascript:submitform();>
   扫一扫二维码分享给其他人
   <img id=qr-code height=64px width=64px>
-  <iframe style="" src=https://pigbbs.github.io/captcha#/bbs/captcha-ok.html height=400px width=800px style="display:none"></iframe>
+  <iframe src=https://pigbbs.github.io/captcha#/bbs/captcha-ok.html height=400px width=800px style="display:none"></iframe>
 <script>
 	/*
 	 * PIGBBS 留言板源码 Copyright Pig Mail fat-pig-2020@outlook.com
