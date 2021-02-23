@@ -7,10 +7,16 @@ checklogin();
 </script>
 <style>
 body {width:640px}
+    .hide-element {display:none}
+    #form {
+       border-style:solid;
+       border-color:red;
+    }
+  </style>
 </style>
-<center><pre>
-<span style='font-size:3em'>猪猪留言板 - BBSID:<span id=bbsid></span></span>
-<a href=/>返回主页</a>
+<pre>
+<div style='font-size:50px'>猪猪留言板 - BBSID:<span id=bbsid></span></div>
+<a href=/ >返回主页</a>
   BBS等级：<span id=bbs-level></span>
 	<span id=bbs-space></span>
 <table border=0><tr><td><span id=bbscontent></span></td></tr></table>
@@ -385,12 +391,3 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		document.getElementById("bbs-space").innerHTML = "当前留言板已用<font color=red>" + current + "</font>字节<br>储存空间<font color=blue>" + max_space + "</font>字节<br>已用" + (current / max_space * 100).toFixed(2) + "%<br><input type=button value=升级留言板 onclick=javascript:gopage(0);><br>";
 	}
 </script>
-  <style>
-    .hide-element {
-      display:none;
-    }
-    #form {
-       border-style:solid;
-       border-color:red;
-    }
-  </style>
