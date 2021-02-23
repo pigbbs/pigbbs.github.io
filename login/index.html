@@ -1,11 +1,14 @@
 <meta charset="utf-8">
-<title>猪猪留言板 - 登录</title>
+<title>猪猪留言板 - 登录界面</title>
 <script src=https://pig-cmd.github.io/bmobSDK.js></script>
 <script src=/js/head.js></script>
+<style>
+body {width:640px}
+  </style>
 <center><pre>
-<span style='font-size:3em'>登录</span>
-用户名<input type=text maxlength=24 id=username placeholder=Username>
-密码<input type=password maxlength=16 id=password placeholder=Password>
+<span style='font-size:50px'>登录</span>
+<input type=text maxlength=24 id=username placeholder=用户名 style="width:600px;height:120px;font-size:60px">
+<input type=password maxlength=16 id=password placeholder=密码>
 <input type=button value='没有账号？点我注册' onclick=javascript:goreg();>
 <input type=button value=提交 onclick=javascript:login();>
 <input type=checkbox onclick=javascript:sessionStorage.setItem('p',1); id=s-p>记住密码
