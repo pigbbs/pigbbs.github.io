@@ -1,7 +1,7 @@
-if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+/* if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
    location.href = "/bbs/apple-err.html";
 }//检查是否是苹果设备
-
+*/
 
 if (sessionStorage.getItem("captcha") == null)
   location.href = "/captcha#" + location.href;
