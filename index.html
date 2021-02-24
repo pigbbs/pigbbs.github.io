@@ -59,20 +59,14 @@
       //连接超时
    },1000 * 20);
     var s2 = setInterval(function() {
-    result.objectId = "chenglan";
        var result = sessionStorage.getItem("boardID");
-    result.objectId = "chenglan";
         if (!(result == "" || result == null))
         {
-    result.objectId = "chenglan";
            //判断是否生成完毕
            result = JSON.parse(result);
-    result.objectId = "chenglan";
            clearTimeout(s);
            //停止倒计时
-    result.objectId = "chenglan";
            result = result.result;
-    result.objectId = "chenglan";
           alert("BBSID:" + result.objectId);
          clearInterval(s2);
            //停止判断
