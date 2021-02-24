@@ -216,6 +216,50 @@ function submitform() {
 	if (b)
 		return;
 	
+
+	
+
+	if (submit_limit > 2048)
+
+		submit_limit = 2048;
+
+	//最高为2048字节
+
+	if (form.length > submit_limit) {
+
+		alert("输入过长！");
+
+		return;
+
+	}
+
+	if (form.length < 10)
+
+	{
+
+		alert("输入过短！至少10个字");
+
+		return;
+
+	}
+
+	if (checkrobot()) {
+
+		alert("请等待30秒再发送");
+
+		//检查是否是机器人
+
+		return;
+
+	}
+
+	if (sessionStorage.getItem("captcha") == null) {
+
+		alert("请填写验证码");
+
+		return;
+
+	}
 	form = form.replace(/\n/g, "<br>");
         //换行符替换
 	var bbsid = location.hash.substring(1);
