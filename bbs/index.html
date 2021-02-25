@@ -18,6 +18,7 @@ font-size:15px;
   </style>
 </style>
 <div style='font-size:50px'>猪猪留言板 - BBSID:<span id=bbsid></span></div>
+搜索<input type=text maxlength=64 placeholder=Key style='width:60%' id=keyword><input type=button value=搜索 onclick=javascript:search_key();>
 <div style="font-size:20px">
 <a href=/>返回主页</a>
 <br>
@@ -25,8 +26,8 @@ font-size:15px;
 	<div id=bbs-space></div>
 </div>
 请输入您要发送的文字<br>
-<pre id=form contenteditable=true>大家好，我是新来的，请多关照</pre><input type=button value=发送 onclick=javascript:submitform(); style="width:100px;height:30px;font-size:15px">
-<table border=0><tr><td><span id=bbscontent></span></td></tr></table>
+<pre id=form contenteditable=true>嗨，大咖，你们好啊！</pre><input type=button value=发送 onclick=javascript:submitform(); style="width:100px;height:30px;font-size:15px">
+<table border=0><tr><td><span id=bbscontent style='border-style:solid;border-color:red;'></span></td></tr></table>
 <pre id=page>
 <input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=第1页 onclick=javascript:gopage(1);>
 </pre>
@@ -38,6 +39,7 @@ font-size:15px;
 	 * PIGBBS 留言板源码 Copyright Pig Mail fat-pig-2020@outlook.com
 	 * 我不指望你能读懂我的源代码
 	 * 重构是不可能的
+	 * 邮箱 pigbbs@outlook.com
 	*/
 sessionStorage.removeItem("captcha");
 Bmob.initialize("666aff82f39ad4c7", "081126");
@@ -57,6 +59,7 @@ query.get(bbsid).then(res =>{
 	var dislevel = res.level;
 	dislevel = parseInt(dislevel);
 	if (!dislevel) dislevel = "free";
+	//如果等级为0，显示free
 	document.getElementById("bbs-level").innerHTML = dislevel;
 	//显示BBS等级
 	show_space();
@@ -328,7 +331,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				else bbsinfo.level = parseInt(bbsinfo.level);
 				var maxlevel = 255 - bbsinfo.level;
 				if (space_level > maxlevel) {
-					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font>";
+					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font><br><input type=button value=返回 onclick=javascrpt:gopage(1);>";
 					return;
 				}
 				//计算购买等级是否超过上限，防止有人篡改升级的等级
@@ -418,5 +421,24 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		var current = sessionStorage.getItem("content").length;
 		var max_space = (parseInt(sessionStorage.getItem("level")) + 1) * 8 * 1024;
 		document.getElementById("bbs-space").innerHTML = "当前留言板已用<font color=red>" + current + "</font>字节<br>储存空间<font color=blue>" + max_space + "</font>字节<br>已用" + (current / max_space * 100).toFixed(2) + "%<br><input type=button value=升级留言板 onclick=javascript:gopage(0);><br>";
+	}
+	function search_key()
+	{
+		var keyword = document.getElementById("keyword").value;
+		//取得关键词
+		var content = sessionStorage.getItem("content");
+		//取得留言板内容
+		var arr = [];
+		//使用arr数组来储存匹配结果
+		while (content.indexOf(keyword) != -1)
+		{
+			arr[i] = {};
+			arr[i].position = content.indexOf(keyword);
+			//得到关键词位置
+			arr[i].page = parseInt(arr[i].position / 1024) + 1;
+			//计算页面位置
+			
+			i++;
+		}
 	}
 </script>
