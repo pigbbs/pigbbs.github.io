@@ -437,7 +437,11 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 			//得到关键词位置
 			arr[i].page = parseInt(arr[i].position / 1024) + 1;
 			//计算页面位置
-			
+			if (arr[i].positon > 20)
+			{
+				//如果关键词的位置在留言板开始的20个字符之后，截取上下文40个字符
+				//arr[i].content = content = 
+			}
 			i++;
 		}
 	}
