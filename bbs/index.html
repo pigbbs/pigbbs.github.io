@@ -458,6 +458,49 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 			content = content.substring(arr[i-1].position + keyword.length);
 		}
 		var end_time = new Date().getTime();
+		if (arr.length)
+		{
+			//确定有查找出的匹配项
+			//开始排序，采用快速排序算法
+			var found = parseInt(arr.length / 2);
+			//确定基准数
+			while (typeof arr[found].found != "undefined")
+				found += 1;
+			arr[found].found = true;
+			var j = 0;
+			console.log(found);
+			while (j != arr.length)
+			{
+				if (j == found)
+				{
+					j++;
+					continue;
+				}
+				if ((j < found) && (arr[i].position > arr[found].position))
+				{
+					//当正在处理的项小于基准，且项的值大于基准时，排序
+					var len = arr.length;
+					arr[len] = arr[j];
+					//把正在处理的项插到队伍的最后
+					arr.splice(j,1);
+					//删除正在处理的项
+					found -= 1;
+					//由于数组发生变化，基准向前移动1个
+				}
+				if ((j > found) && (arr[i].position < arr[found].position))
+				{
+					//当正在处理的项大于技术，且项的值小于基准时，排序
+					arr.splice(0,0,arr[j]);
+					//把正在处理的项插到队伍的最前
+					arr.splice(j+1,1);
+					//删除正在处理的项
+					found += 1;
+					//由于数组发生变化，基准向后移动1个
+				}
+				j++;
+				continue;
+			}
+		}
 		var i = 0;
 		var letter = "<input type=button onclick=javascript:window.parent.window.gopage(1); value=返回><br><center><span style='font-size:2em'>猪猪留言板智能搜索系统</span><br>为你找到" + arr.length + "个匹配结果 用时" + (end_time - start_time) + "毫秒</center><hr>";
 		while (i != arr.length)
@@ -465,12 +508,14 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 			letter += "<strong>第" + arr[i].page + "页 第" + arr[i].position + "个字符<br><span style='font-size:0.8em'><iframe src=" + getblobAsText(arr[i].content) + " height=5% width=80%>Not support this frame.Please change the browser.</iframe><br><input type=button value=跳转 onclick=javascript:window.parent.window.gopage(" + arr[i].page + ");><hr>";
 			i++;
 		}
+		console.log(arr);
 		document.getElementById("bbs-content-iframe").src = getblobAsText(letter);
 	}
 	function getblobAsText(text)
 	{
 		return (window.URL.createObjectURL(new Blob([text],{type:"text/html"})));
 	}
+	
 		
 	
 </script>
