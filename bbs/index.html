@@ -26,11 +26,12 @@ font-size:15px;
 	<div id=bbs-space></div>
 </div>
 请输入您要发送的文字<br>
-<pre id=form contenteditable=true>嗨，大咖，你们好啊！</pre><input type=button value=发送 onclick=javascript:submitform(); style="width:100px;height:30px;font-size:15px">
-<table border=0><tr><td><span id=bbscontent style='border-style:solid;border-color:red;'></span></td></tr></table>
+<table border=10 style='height:80%;width:90%'><tr><td><span id=bbscontent></span></td></tr></table>
 <pre id=page>
 <input type=button value=上一页 onclick=javascript:backpage(); id=bp> 第<span id=page-num contenteditable=true></span>页 <input type=button value=下一页 onclick=javascript:nextpage(); id=np> <input type=button value=跳转 onclick=javascript:fgopage();><input type=button value=第1页 onclick=javascript:gopage(1);>
 </pre>
+<pre id=form contenteditable=true>嗨，大咖，你们好啊！</pre><input type=button value=发送 onclick=javascript:submitform(); style="width:100px;height:30px;font-size:15px">
+
   扫一扫二维码分享给其他人
   <img id=qr-code height=64px width=64px>
   <iframe src=https://pigbbs.github.io/captcha#/bbs/captcha-ok.html height=400px width=800px style="display:none"></iframe>
@@ -221,7 +222,7 @@ function submitform() {
 	
 
 	
-
+ 	var submit_limit = (parseInt(localStorage.getItem("level")) + 1) * 140;
 	if (submit_limit > 2048)
 
 		submit_limit = 2048;
@@ -439,10 +440,16 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 			//计算页面位置
 			if (arr[i].positon > 20)
 			{
-				//如果关键词的位置在留言板开始的20个字符之后，截取上下文40个字符
-				//arr[i].content = content = 
+				//如果关键词的位置在留言板开始的30个字符之后，截取上下文60个字符
+				arr[i].content = content.substring(arr[i].position - 30,arr[i].position + 30);
+			
+			}
+			else {
+				//截取从开头到关键词后30个字符
+				arr[i].content = content.substring(0,arr[i].position + 30);
 			}
 			i++;
 		}
+		console.log(arr);
 	}
 </script>
