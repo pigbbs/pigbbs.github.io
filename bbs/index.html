@@ -96,7 +96,7 @@ function gopage(n) {
 			sessionStorage.setItem("content", res.content);
 			sessionStorage.setItem("level", res.level);
 			//得到BBS信息，更新缓存
-			if ((res.level + 1) * 8 == 2 * 1024) document.getElementById("bbs-content-iframe").src = getblobAsText("该留言板的等级已经是最高，无法升级");
+			if ((res.level + 1) * 8 == 2 * 1024) document.getElementById("bbs-content-iframe").src = getblobAsText("该留言板的等级已经是最高，无法升级<br><input type=button value=返回 onclick=javascript:gopage(1);>");
 			else {
 				var level = res.level;
 				if (level == "free") level = 0;
@@ -165,7 +165,7 @@ function gopage(n) {
 		if (content.length > n * 1024) var display = content.substring((n - 1) * 1024, n * 1024);
 		else var display = content.substring((n - 1) * 1024);
 		//判断内容是否超出当前页面的长度
-		document.getElementById("bbs-content-iframe").innerHTML = getblobAsText(display);
+		document.getElementById("bbs-content-iframe").src = getblobAsText(display);
 	} else gopage(1);
 }
 function fgopage() {
