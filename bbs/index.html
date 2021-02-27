@@ -458,51 +458,31 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 			content = content.substring(arr[i-1].position + keyword.length);
 		}
 		var end_time = new Date().getTime();
-		if (arr.length)
+		if (arr.length > 1)
 		{
-			//确定有查找出的匹配项
-			//开始排序，采用快速排序算法
-			var found = parseInt(arr.length / 2);
-			//确定基准数
-			while (typeof arr[found].found != "undefined")
-				found += 1;
-			arr[found].found = true;
+			//匹配结果至少为2个时，开始排序
+			var i = 0;
 			var j = 0;
-			console.log(found);
-			while (j != arr.length)
+			while ((i + 1) != arr.length)
 			{
-				if (j == found)
+				j = i;
+				while ((j + 1) != arr.length)
 				{
+					if (arr[j].position > arr[j + 1].position)
+					{
+						//如果前一项大于后一项，交换位置
+						var tmp = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = tmp;
+					}
 					j++;
-					continue;
 				}
-				if ((j < found) && (arr[j].position > arr[found].position))
-				{
-					//当正在处理的项小于基准，且项的值大于基准时，排序
-					var len = arr.length;
-					arr[len] = arr[j];
-					//把正在处理的项插到队伍的最后
-					arr.splice(j,1);
-					//删除正在处理的项
-					found -= 1;
-					//由于数组发生变化，基准向前移动1个
-				}
-				if ((j > found) && (arr[j].position < arr[found].position))
-				{
-					//当正在处理的项大于技术，且项的值小于基准时，排序
-					arr.splice(0,0,arr[j]);
-					//把正在处理的项插到队伍的最前
-					arr.splice(j+1,1);
-					//删除正在处理的项
-					found += 1;
-					//由于数组发生变化，基准向后移动1个
-				}
-				j++;
-				continue;
+				i++;
 			}
 		}
+		var sort_time = new Date.getTime();
 		var i = 0;
-		var letter = "<input type=button onclick=javascript:window.parent.window.gopage(1); value=返回><br><center><span style='font-size:2em'>猪猪留言板智能搜索系统</span><br>为你找到" + arr.length + "个匹配结果 用时" + (end_time - start_time) + "毫秒</center><hr>";
+		var letter = "<input type=button onclick=javascript:window.parent.window.gopage(1); value=返回><br><center><span style='font-size:2em'>猪猪留言板智能搜索系统</span><br>为你找到" + arr.length + "个匹配结果 查找用时" + (end_time - start_time) + "毫秒 排序用时" + (sort_time - end_time) + "毫秒 总共用时" + (sort_time - start_time) + "毫秒</center><hr>";
 		while (i != arr.length)
 		{
 			letter += "<strong>第" + arr[i].page + "页 第" + arr[i].position + "个字符<br><span style='font-size:0.8em'><iframe src=" + getblobAsText(arr[i].content) + " height=5% width=80%>Not support this frame.Please change the browser.</iframe><br><input type=button value=跳转 onclick=javascript:window.parent.window.gopage(" + arr[i].page + ");><hr>";
