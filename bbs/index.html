@@ -42,6 +42,8 @@ font-size:15px;
 	 * 重构是不可能的
 	 * 邮箱 pigbbs@outlook.com
 	*/
+	document.getElementById("bbs-content-iframe").src = getblobAsText("正在加载，请稍后......");
+	//显示正在加载
 sessionStorage.removeItem("captcha");
 Bmob.initialize("666aff82f39ad4c7", "081126");
 	//登录数据库
