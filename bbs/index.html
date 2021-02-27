@@ -476,7 +476,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 					j++;
 					continue;
 				}
-				if ((j < found) && (arr[i].position > arr[found].position))
+				if ((j < found) && (arr[j].position > arr[found].position))
 				{
 					//当正在处理的项小于基准，且项的值大于基准时，排序
 					var len = arr.length;
@@ -487,7 +487,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 					found -= 1;
 					//由于数组发生变化，基准向前移动1个
 				}
-				if ((j > found) && (arr[i].position < arr[found].position))
+				if ((j > found) && (arr[j].position < arr[found].position))
 				{
 					//当正在处理的项大于技术，且项的值小于基准时，排序
 					arr.splice(0,0,arr[j]);
