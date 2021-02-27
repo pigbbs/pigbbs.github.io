@@ -96,7 +96,7 @@ function gopage(n) {
 			sessionStorage.setItem("content", res.content);
 			sessionStorage.setItem("level", res.level);
 			//得到BBS信息，更新缓存
-			if ((res.level + 1) * 8 == 2 * 1024) document.getElementById("bbs-content-iframe").src = getblobAsText("该留言板的等级已经是最高，无法升级<br><input type=button value=返回 onclick=javascript:gopage(1);>");
+			if ((res.level + 1) * 8 == 2 * 1024) document.getElementById("bbs-content-iframe").src = getblobAsText("该留言板的等级已经是最高，无法升级<br><input type=button value=返回 onclick=javascript:window.parent.window.gopage(1);>");
 			else {
 				var level = res.level;
 				if (level == "free") level = 0;
@@ -131,19 +131,19 @@ function gopage(n) {
 					maxprice *= 0.5;
 				}
 				maxprice = parseInt(maxprice);
-				bbs_content += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font>" + "<font color=blue>" + maxlevel * 8 * 1024 + "字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(" + maxlevel + "," + maxprice + ");><br>";
-				if (maxlevel > 199) bbs_content += "购买200等级 原价4000猪头 现价2600猪头 <font color=red>打六五折</font> <font color=blue>1638400字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(200,2600);><br>";
-				if (maxlevel > 149) bbs_content += "购买150等级 原价3000猪头 现价2250猪头 <font color=red>打七五折</font> <font color=blue>1228800字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(150,2250);><br>";
-				if (maxlevel > 99) bbs_content += "购买100等级 原价2000猪头 现价1800猪头 <font color=red>打九折</font> <font color=blue>819200字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(100,1800);><br>";
-				if (maxlevel > 49) bbs_content += "购买50等级 原价1000猪头 现价950猪头 打九五折 <font color=blue>409600字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(50,950);><br>";
-				if (maxlevel > 29) bbs_content += "购买30等级 原价600猪头 现价588猪头 打九八折 <font color=blue>245760字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(30,588);><br>";
-				if (maxlevel > 19) bbs_content += "购买20等级 原价400猪头 现价396猪头 打九九折 <font color=blue>163840字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(20,396);><br>";
-				if (maxlevel > 9) bbs_content += "购买10等级 200猪头 <font color=blue>81920字节</font>储存空间 <input type=button value=购买 onclick=javascript:buyspace(10,200);><br>";
-				if (maxlevel > 4) bbs_content += "购买5等级 100猪头 40960字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(5,100);><br>";
-				if (maxlevel > 2) bbs_content += "购买3等级 60猪头 24576字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(3,60);><br>";
-				if (maxlevel > 1) bbs_content += "购买2等级 40猪头 16384字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(2,40);><br>";
-				if (maxlevel > 0) bbs_content += "购买1等级 20猪头 8192字节储存空间 <input type=button value=购买 onclick=javascript:buyspace(1,20);><br>";
-				bbs_content += "<br><br><br><input type=button value=退出 onclick=javascript:gopage(1);>";
+				bbs_content += "[最高等级] 购买" + maxlevel + "等级 原价" + (maxlevel * 20) + "猪头 现价" + maxprice + "猪头 <font color=red>" + maxnum + "</font>" + "<font color=blue>" + maxlevel * 8 * 1024 + "字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(" + maxlevel + "," + maxprice + ");><br>";
+				if (maxlevel > 199) bbs_content += "购买200等级 原价4000猪头 现价2600猪头 <font color=red>打六五折</font> <font color=blue>1638400字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(200,2600);><br>";
+				if (maxlevel > 149) bbs_content += "购买150等级 原价3000猪头 现价2250猪头 <font color=red>打七五折</font> <font color=blue>1228800字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(150,2250);><br>";
+				if (maxlevel > 99) bbs_content += "购买100等级 原价2000猪头 现价1800猪头 <font color=red>打九折</font> <font color=blue>819200字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(100,1800);><br>";
+				if (maxlevel > 49) bbs_content += "购买50等级 原价1000猪头 现价950猪头 打九五折 <font color=blue>409600字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(50,950);><br>";
+				if (maxlevel > 29) bbs_content += "购买30等级 原价600猪头 现价588猪头 打九八折 <font color=blue>245760字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(30,588);><br>";
+				if (maxlevel > 19) bbs_content += "购买20等级 原价400猪头 现价396猪头 打九九折 <font color=blue>163840字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(20,396);><br>";
+				if (maxlevel > 9) bbs_content += "购买10等级 200猪头 <font color=blue>81920字节</font>储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(10,200);><br>";
+				if (maxlevel > 4) bbs_content += "购买5等级 100猪头 40960字节储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(5,100);><br>";
+				if (maxlevel > 2) bbs_content += "购买3等级 60猪头 24576字节储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(3,60);><br>";
+				if (maxlevel > 1) bbs_content += "购买2等级 40猪头 16384字节储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(2,40);><br>";
+				if (maxlevel > 0) bbs_content += "购买1等级 20猪头 8192字节储存空间 <input type=button value=购买 onclick=javascript:window.parent.window.buyspace(1,20);><br>";
+				bbs_content += "<br><br><br><input type=button value=退出 onclick=javascript:window.parent.window.gopage(1);>";
 				document.getElementById("bbs-content-iframe").src = getblobAsText(bbs_content);
 
 				//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
@@ -308,7 +308,7 @@ function buyspace(space_level, need_pigcoin) {
 	var pigcoin = sessionStorage.getItem("pigcoin");
 	//确认是否要升级留言板
 	pigcoin = parseInt(pigcoin);
-	document.getElementById("bbs-content-iframe").src = getblobAsText("<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：<span id=my-pigcoin>" + pigcoin + "</span>个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>");
+	document.getElementById("bbs-content-iframe").src = getblobAsText("<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:window.parent.window.gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：<span id=my-pigcoin>" + pigcoin + "</span>个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:gopage(1);>");
 }
 function submit_form_buyspace(space_level, need_pigcoin) {
 	var bbsid = location.hash.substring(1);
@@ -320,12 +320,12 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		console.log(res);
 		var userinfo = res;
 		sessionStorage.setItem("pigcoin", userinfo.pigcoin);
-		document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
+		document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
 		sessionStorage.setItem("use4image", userinfo.use4image);
 		sessionStorage.setItem("useHTML", userinfo.useHTML);
 		sessionStorage.setItem("BBSnum", userinfo.BBSnum);
 		//更新用户数据，并检查是否有足够的猪头去升级留言板
-		if (need_pigcoin > userinfo.pigcoin) document.getElementById("get-status").innerHTML = "<font color=red>交易失败！您的猪头不足<input type=button value=点我充值 onclick=javascript:window.open('https://chenglan28.github.io/avs-account/pigcoin');></font>";
+		if (need_pigcoin > userinfo.pigcoin) document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！您的猪头不足<input type=button value=点我充值 onclick=javascript:window.open('https://chenglan28.github.io/avs-account/pigcoin');></font>";
 		else {
 			chatinfo.get(bbsid).then(res =>{
 				//得到留言板数据
@@ -336,7 +336,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				else bbsinfo.level = parseInt(bbsinfo.level);
 				var maxlevel = 255 - bbsinfo.level;
 				if (space_level > maxlevel) {
-					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font><br><input type=button value=返回 onclick=javascrpt:gopage(1);>";
+					document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！留言板等级过大，无法交易！</font><br><input type=button value=返回 onclick=javascrpt:gopage(1);>";
 					return;
 				}
 				//计算购买等级是否超过上限，防止有人篡改升级的等级
@@ -353,7 +353,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				query.set("pigcoin", userinfo.pigcoin);
 				sessionStorage.setItem("pigcoin", userinfo.pigcoin);
 				//在本地更新用户的猪头数据
-				document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
+				document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("my-pigcoin").innerHTML = userinfo.pigcoin;
 				//显示用户的猪头
 				sessionStorage.setItem("level", bbsinfo.level.toString());
 				//在本地更新留言板等级
@@ -366,12 +366,12 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 						//提交BBS数据给服务器
 						//如果全部成功，则交易成功
 						document.getElementById("bbs-level").innerHTML = bbsinfo.level;
-						document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
+						document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=green>交易成功！</font>";
 					}).
 					catch(err =>{
 						//如果提交用户数据给服务器成功，提交BBS数据给服务器失败，则撤销操作
 						console.log(err);
-						document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
+						document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").inenrHTML = "<font color=red>交易失败！未知的错误！<br>正在撤销操作......</font>";
 						bbsinfo.level -= space_level;
 						//减去留言板等级
 						document.getElementById("bbs-level").innerHTML = bbsinfo.level;
@@ -390,34 +390,34 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 						query.set("pigcoin", userinfo.pigcoin);
 						query.save().then(res =>{
 							console.log(res);
-							document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销成功！</font>";
+							document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销成功！</font>";
 							//提交用户信息给服务器，如果成功，则撤销成功
 						}).
 						catch(err =>{
 							console.log(err);
 							//如果提交失败，则生成事件ID，让用户向管理员提交撤销请求，并附上事件ID
 							var num = encodeURI(uuid) + "pdjcp" + btoa(uuid) + "ps3rp" + btoa((pigcoin * 10 + 8) * 2 - 18) + "pdatep" + btoa(encodeURI(new Date()));
-							document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销失败！<br>请把此页截图发送给<a href=fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a><br>我们稍后便会处理<br>事件ID:<font color=blue>" + num + "</font></font>";
+							document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！<br>操作撤销失败！<br>请把此页截图发送给<a href=fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a><br>我们稍后便会处理<br>事件ID:<font color=blue>" + num + "</font></font>";
 						});
 					});
 				}).
 				catch(err =>{
 					//提交用户信息给服务器失败，取消操作
 					console.log(err);
-					document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+					document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
 				});
 			}).
 			catch(err =>{
 				//获取留言板信息失败，取消操作
 				console.log(err);
-				document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+				document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
 			});
 		}
 	}).
 	catch(err =>{
 		//获取用户信息失败，取消操作
 		console.log(err);
-		document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
+		document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementById("get-status").innerHTML = "<font color=red>交易失败！未知的错误！</font>";
 	});
 
 }
