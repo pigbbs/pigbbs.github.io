@@ -459,7 +459,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 		}
 		var end_time = new Date().getTime();
 		var i = 0;
-		var letter = "<input type=button value=window.parent.window.gopage(1); value=返回><br><center><span style='font-size:2em'>猪猪留言板智能搜索系统</span><br>为你找到" + arr.length + "个匹配结果 用时" + (end_time - start_time) + "毫秒</center><hr>";
+		var letter = "<input type=button onclick=javascript:window.parent.window.gopage(1); value=返回><br><center><span style='font-size:2em'>猪猪留言板智能搜索系统</span><br>为你找到" + arr.length + "个匹配结果 用时" + (end_time - start_time) + "毫秒</center><hr>";
 		while (i != arr.length)
 		{
 			letter += "<strong>第" + arr[i].page + "页 第" + arr[i].position + "个字符<br><span style='font-size:0.8em'><iframe src=" + getblobAsText(arr[i].content) + " height=5% width=80%>Not support this frame.Please change the browser.</iframe><br><input type=button value=跳转 onclick=javascript:window.parent.window.gopage(" + arr[i].page + ");><hr>";
