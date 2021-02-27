@@ -480,7 +480,7 @@ function submit_form_buyspace(space_level, need_pigcoin) {
 				i++;
 			}
 		}
-		var sort_time = new Date.getTime();
+		var sort_time = new Date().getTime();
 		var i = 0;
 		var letter = "<input type=button onclick=javascript:window.parent.window.gopage(1); value=返回><br><center><span style='font-size:2em'>猪猪留言板智能搜索系统</span><br>为你找到" + arr.length + "个匹配结果 查找用时" + (end_time - start_time) + "毫秒 排序用时" + (sort_time - end_time) + "毫秒 总共用时" + (sort_time - start_time) + "毫秒</center><hr>";
 		while (i != arr.length)
