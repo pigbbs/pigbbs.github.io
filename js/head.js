@@ -1,7 +1,15 @@
-/* if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+	/*
+	 * PIGBBS 留言板源码 Copyright Pig Mail fat-pig-2020@outlook.com
+	 * 我不指望你能读懂我的源代码
+	 * 重构是不可能的
+	 * 邮箱 pigbbs@outlook.com
+	*/
+
+
+if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
    location.href = "/bbs/apple-err.html";
 }//检查是否是苹果设备
-*/
+
 
 if (sessionStorage.getItem("captcha") == null)
   location.href = "/captcha#" + location.href;
