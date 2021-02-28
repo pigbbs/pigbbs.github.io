@@ -8,7 +8,7 @@ function buyspace(space_level, need_pigcoin) {
 	var pigcoin = sessionStorage.getItem("pigcoin");
 	//确认是否要升级留言板
 	pigcoin = parseInt(pigcoin);
-	document.getElementById("bbs-content-iframe").src = getblobAsText("<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:window.parent.window.gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：<span id=my-pigcoin>" + pigcoin + "</span>个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:window.parent.window.gopage(1);>");
+	document.getElementById("bbs-content-iframe").src = getblobAsText("<span style='font-color:3em'>购买储存空间</span><br><input type=button value=返回 onclick=javascript:window.parent.window.gopage(0);><br>等级：" + space_level + " 价格：" + need_pigcoin + "猪头<br>我的猪头：<span id=my-pigcoin>" + pigcoin + "</span>个<br>BBSID:" + location.hash.substring(1) + "<br><font color=red>小猪提示：您正在进行金钱交易<br>请谨慎操作，支付后概不退还<br><div id=get-status></div><br><input type=button value=购买 onclick=javascript:window.parent.window.submit_form_buyspace(" + space_level + "," + need_pigcoin + ");><input type=button value=退出 onclick=javascript:window.parent.window.gopage(1);>");
 }
 function submit_form_buyspace(space_level, need_pigcoin) {
 	var bbsid = location.hash.substring(1);
