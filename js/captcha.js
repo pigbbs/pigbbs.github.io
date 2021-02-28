@@ -1,3 +1,9 @@
+	/*
+	 * PIGBBS 留言板源码 Copyright Pig Mail fat-pig-2020@outlook.com
+	 * 我不指望你能读懂我的源代码
+	 * 重构是不可能的
+	 * 邮箱 pigbbs@outlook.com
+	*/
 function newcaptcha(canvasid)
 {
    //生成验证码
