@@ -136,7 +136,7 @@ function TextToImage(str)
 	{
 		var begin = str.substring(ptr).indexOf("{")+ptr;
 		var end = str.substring(begin).indexOf("}")+begin;
-		var current_command = stimage_dataURLtoBlobr.substring(begin,end+1);
+		var current_command = image_dataURLtoBlob.substring(begin,end+1);
 		ptr += end+1;
 		if (current_command.substring(0,24) != "{pig_command:show_image(")
 			return str;
