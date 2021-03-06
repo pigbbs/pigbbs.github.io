@@ -45,3 +45,9 @@ catch(err =>{
 	if (err.code == 101) location.href = "/";
 	//错误代码==101(找不到对象)时，返回主页
 });
+function report()
+{
+	sessionStorage.setItem("bbsid",location.hash.substring(1));
+	location.href = "/report";
+}
+
