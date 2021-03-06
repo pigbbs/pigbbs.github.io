@@ -94,15 +94,8 @@ function gopage(n) {
 		else var display = content.substring((n - 1) * 1024);
 		//判断内容是否超出当前页面的长度
 		display = display.replaceAll("<hr>","<input type=button value=举报 onclick=javascript:report();><hr />");
-		var s = setInterval(function(){
-			
-			display = TextToImage(display);
-			if (display.indexOf("{") != -1)
-			{
 				document.getElementById("bbs-content-iframe").src = getblobAsText(display);
-				clearInterval(s);
-			}
-		},500);
+		render_img();
 	} else gopage(1);
 }
 function fgopage() {
@@ -127,39 +120,6 @@ function nextpage() {
 	//下一页
 	gopage(page);
 }
-function TextToImage(str)
-{
-	var str_num = str.split("{").length-1;
-	var i = 0;
-	var ptr = 0;
-	while(i != str.num)
-	{
-		var begin = str.substring(ptr).indexOf("{")+ptr;
-		var end = str.substring(begin).indexOf("}")+begin;
-		var current_command = str.substring(begin,end+1);
-		ptr += end+1;
-		if (current_command.substring(0,24) != "{pig_command:show_image(")
-			return str;
-		var uuid_size = parseInt(current_command.substring(24));
-		var uuid = current_command.substring(24+uuid_size.toString().length+1,24+uuid_size.toString().length+1+uuid_size);
-		if (localStorage.getItem('cache-img-' + uuid) != null)
-		{
-			let blob = image_dataURLtoBlob(localStorage.getItem('cache-img-' + uuid));
-			let url = window.URL.createObjectURL(blob);
-			let rand = Math.random().toString().substring(3);
-			str.replaceAll(current_command,"<img src=" + url + " class=user_image id=bbs_image_" + rand + ">");
-			let obj = sessionStorage.getItem("render-obj");
-			if (obj == null)
-				obj = [];
-			else
-				obj = JSON.parse(obj);
-			obj[obj.length] = url;
-			sessionStorage.setItem("render-obj",JSON.stringify(obj));
-		} else { loadImage(uuid) };
-		i++;
-	}
-	return str;
-};
 function loadImage(uuid)
 {
 	var i = localStorage.getItem("cache-img-" + uuid);
@@ -179,6 +139,23 @@ function loadImage(uuid)
 		console.log(err);
 	});
 }
-
+function render_img(){
+	document.getElementById("bbs-content-iframe").onload = function(){
+		
+		var s = setInterval(function(){
+			var arr = document.getElementsByClassName("user_upload_img");
+			if (!arr.length)
+				clearInterval(s);
+			var i = 0;
+			while (i != arr.length)
+			{	
+				var img = loadImage(arr[i].id);
+				if (typeof img != "undefined")
+					arr[i].className = "user_upload_img_success";
+				i++;
+			}
+		},500);
+	};
+};
 
 
