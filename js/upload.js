@@ -80,7 +80,7 @@ function upload_file () {
 		return;
 	}
 	var price;
-	if (file_content.length <  (1024 * 1024）
+	if (file_content.length <  (1024 * 1024))
 		price = 5;
 	else {
 		if (file_content.length < (2 * 1024 * 1024))
@@ -99,7 +99,7 @@ function upload_file () {
 	};
 	if (checkrobot())
 	{
-		alert("请等待30秒后上传"):
+		alert("请等待30秒后上传");
 		return;
 	}
 	if (confirm("文件即将上传\n文件类型：图片 文件后缀名：" + suffix + " 文件大小：" + file_content.length + "字节\n收费：" + price + "猪头\n是否同意收费？\n同意将开始上传 不同意则取消上传"))
@@ -172,7 +172,7 @@ function upload_file () {
 							console.log("操作撤销成功！");
 						}).catch(err => {
 							//操作撤销失败
-							alert("操作撤销失败，请把以下代码发给pigbbs@outlook.com处理\n" + btoa(uuid) + "|p" + btoa(price.toString()) + "|t" + btoa(escape(new Date().toString()));
+							alert("操作撤销失败，请把以下代码发给pigbbs@outlook.com处理\n" + btoa(uuid) + "|p" + btoa(price.toString()) + "|t" + btoa(escape(new Date().toString(16))));
 						});
 					}
 				}).catch(err => {
