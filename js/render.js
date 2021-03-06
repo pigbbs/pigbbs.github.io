@@ -154,7 +154,7 @@ function TextToImage(str)
 			else
 				obj = JSON.parse(obj);
 			obj[obj.length] = url;
-			sessionStorage.setItem("render-obj",obj);
+			sessionStorage.setItem("render-obj",JSON.stringify(obj));
 		} else { loadImage(uuid) };
 		i++;
 	}
