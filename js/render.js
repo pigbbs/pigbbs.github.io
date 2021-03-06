@@ -94,6 +94,7 @@ function gopage(n) {
 		else var display = content.substring((n - 1) * 1024);
 		//判断内容是否超出当前页面的长度
 		display = display.replaceAll("<hr>","<input type=button value=举报 onclick=javascript:report();><hr />");
+		display = TextToImage(display);
 		document.getElementById("bbs-content-iframe").src = getblobAsText(display);
 	} else gopage(1);
 }
@@ -119,3 +120,58 @@ function nextpage() {
 	//下一页
 	gopage(page);
 }
+function TextToImage(str)
+{
+	var str_num = str.split("{").length-1;
+	var i = 0;
+	var ptr = 0;
+	while(i != str.num)
+	{
+		var begin = str.substring(ptr).indexOf("{")+ptr;
+		var end = str.substring(begin).indexOf("}")+begin;
+		var current_command = stimage_dataURLtoBlobr.substring(begin,end+1);
+		ptr += end+1;
+		if (current_command.substring(0,24) != "{pig_command:show_image(")
+			return str;
+		var uuid_size = parseInt(current_command.substring(24));
+		var uuid = current_command.substring(24+uuid_size.toString().length+1,24+uuid_size.toString().length+1+uuid_size);
+		if (localStorage.getItem('cache-img-' + uuid) != null)
+		{
+			let blob = image_dataURLtoBlob(localStorage.getItem('cache-img-' + uuid));
+			let url = window.URL.createObjectURL(blob);
+			let rand = Math.random().toString().substring(3);
+			str.replaceAll(current_command,"<img src=" + url + " class=user_image id=bbs_image_" + rand + ">");
+			let obj = sessionStorage.getItem("render-obj");
+			if (obj == null)
+				obj = [];
+			else
+				obj = JSON.parse(obj);
+			obj[obj.length] = url;
+			sessionStorage.setItem("render-obj",obj);
+		} else { loadImage(uuid) };
+		i++;
+	}
+	return str;
+};
+function loadImage(uuid)
+{
+	var i = localStorage.getItem("cache-img" + uuid);
+	if (i != null)
+		return i;
+	const img = Bmob.Query("image");
+	img.get(uuid).then(res => {
+		i = res.content;
+		var j = 1;
+		while (typeof res["content"+j] != "undefined")
+		{
+			i += res["content"+j];
+			j++;
+		}
+		localStorage.setItem("cache-img" + uuid,i);
+	}).catch(err => {
+		console.log(err);
+	});
+}
+
+
+
