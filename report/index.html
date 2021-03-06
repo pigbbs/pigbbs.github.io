@@ -2,7 +2,7 @@
   var bbsid = sessionStorage.getItem("bbsid");
   var username = sessionStorage.getItem("username");
   var e = document.createElement("a");
-  e.src = "mailto:pigbbs@outlook.com?title=举报&body=[举报] 举报者：" + username + " BBSID: " + bbsid + "%0A(请把截图上传到附件中)";
+  e.href = "mailto:pigbbs@outlook.com?title=举报&body=[举报] 举报者：" + username + " BBSID: " + bbsid + "%0A(请把截图上传到附件中)";
   e.click();
   history.go(-1);
 </script>
