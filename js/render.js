@@ -94,8 +94,15 @@ function gopage(n) {
 		else var display = content.substring((n - 1) * 1024);
 		//判断内容是否超出当前页面的长度
 		display = display.replaceAll("<hr>","<input type=button value=举报 onclick=javascript:report();><hr />");
-		display = TextToImage(display);
-		document.getElementById("bbs-content-iframe").src = getblobAsText(display);
+		var s = setInterval(function(){
+			
+			display = TextToImage(display);
+			if (display.indexOf("{") != -1)
+			{
+				document.getElementById("bbs-content-iframe").src = getblobAsText(display);
+				clearInterval(s);
+			}
+		},500);
 	} else gopage(1);
 }
 function fgopage() {
