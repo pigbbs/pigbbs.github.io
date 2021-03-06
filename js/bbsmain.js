@@ -48,6 +48,6 @@ catch(err =>{
 function report()
 {
 	sessionStorage.setItem("bbsid",location.hash.substring(1));
-	location.href = "/report";
+	location.href = "https://pigbbs.github.io/report";
 }
 
