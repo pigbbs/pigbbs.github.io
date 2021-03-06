@@ -151,7 +151,15 @@ function render_img(){
 			{	
 				var img = loadImage(arr[i].id);
 				if (typeof img != "undefined")
+				{
+					let blob = image_dataURLtoBlob(img);
+					let url = window.URL.createObjectURL(blob);
+					arr[i].src = url;
+					arr[i].onload = function () {
+						window.URL.revokeObjectURL(url);
+					};
 					arr[i].className = "user_upload_img_success";
+				}
 				i++;
 			}
 		},500);
