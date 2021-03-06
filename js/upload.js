@@ -139,7 +139,7 @@ function upload_file () {
 						var image_uuid = res.objectId;
 						chat.get(location.hash.substring(1)).then(res => {
 							var bbs_content = res.content;
-							bbs_content = "[" + sessionStorage.getItem('username') + "]<font color=red>" + new Date().toString() + "</font><br>{pig_command:show_image(" + image_uuid.length + "," + image_uuid + "})<hr>" + bbs_content;
+							bbs_content = "[" + sessionStorage.getItem('username') + "]<font color=red>" + new Date().toString() + "</font><br>{pig_command:show_image(" + image_uuid.length + "," + image_uuid + ")}<hr>" + bbs_content;
 							if (((res.level + 1) * 8 * 1024) < bbs_content.length)
 							{
 								alert("留言板储存空间已达上限，请升级留言板");
