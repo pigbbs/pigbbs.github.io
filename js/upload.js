@@ -19,7 +19,7 @@ document.getElementById("upload_file").onchange = function(){
 			var file_dataurl = reader.result;
 			sessionStorage.setItem("upload_file",file_dataurl);
 			//缓存用户上传的文件
-			if (sessionStorage.getItem('upload_file') == file_dataurl)
+			if (sessionStorage.getItem('upload_file') != file_dataurl)
 			{
 				//当缓存区溢出时，清除缓存
 				sessionStorage.removeItem('upload_file');
