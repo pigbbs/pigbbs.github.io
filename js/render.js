@@ -93,7 +93,7 @@ function gopage(n) {
 		if (content.length > n * 1024) var display = content.substring((n - 1) * 1024, n * 1024);
 		else var display = content.substring((n - 1) * 1024);
 		//判断内容是否超出当前页面的长度
-		display = display.replaceAll("<hr>","<input type=button value=举报 onclick=javascript:report();><hr />");
+		display = display.replaceAll("<hr>","<input type=button value=举报 onclick=javascript:window.parent.window.report();><hr />");
 				document.getElementById("bbs-content-iframe").src = getblobAsText(display);
 		render_img();
 	} else gopage(1);
