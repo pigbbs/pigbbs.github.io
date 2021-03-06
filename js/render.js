@@ -143,7 +143,7 @@ function render_img(){
 	document.getElementById("bbs-content-iframe").onload = function(){
 		
 		var s = setInterval(function(){
-			var arr = document.getElementsByClassName("user_upload_img");
+			var arr = document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementsByClassName("user_upload_img");
 			if (!arr.length)
 				clearInterval(s);
 			var i = 0;
