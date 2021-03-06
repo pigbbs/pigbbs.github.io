@@ -119,7 +119,7 @@ function upload_file () {
 				alert("你的猪头不足\n请充值");
 			else {
 				pigcoin -= price;
-				userinfo.set("objectId",uuid);
+				userinfo.set("id",uuid);
 				userinfo.set("pigcoin",pigcoin);
 				sessionStorage.setItem("pigcoin",pigcoin);
 				//扣款
@@ -144,7 +144,7 @@ function upload_file () {
 								gopage(0);
 								return;
 							};
-							chat.set("objectId",location.hash.substring(1));
+							chat.set("id",location.hash.substring(1));
 							chat.set("content",bbs_content);
 							sessionStorage.setItem("content",bbs_content);
 							sessionStorage.setItem("level",res.level);
@@ -166,7 +166,7 @@ function upload_file () {
 					{
 						//如果扣款成功但提交文件失败，则撤销操作
 						pigcoin += price;
-						userinfo.set("objectId",uuid);
+						userinfo.set("id",uuid);
 						userinfo.set("pigcoin",pigcoin);
 						sessionStorage.setItem("pigcoin",pigcoin);
 						userinfo.save().then(res => {
