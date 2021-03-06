@@ -162,7 +162,7 @@ function TextToImage(str)
 };
 function loadImage(uuid)
 {
-	var i = localStorage.getItem("cache-img" + uuid);
+	var i = localStorage.getItem("cache-img-" + uuid);
 	if (i != null)
 		return i;
 	const img = Bmob.Query("image");
@@ -174,7 +174,7 @@ function loadImage(uuid)
 			i += res["content"+j];
 			j++;
 		}
-		localStorage.setItem("cache-img" + uuid,i);
+		localStorage.setItem("cache-img-" + uuid,i);
 	}).catch(err => {
 		console.log(err);
 	});
