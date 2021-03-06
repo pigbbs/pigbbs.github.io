@@ -126,11 +126,13 @@ function upload_file () {
 				userinfo.save().then(res => {
 					fee_status = true;
 					idb.set("suffix",suffix);
-					idb.set("content",file_content.substring(0,1024*1024*4));
-					idb.set("content2",file_content.substring(1024*1024*4,1024*1024*8));
-					idb.set("content3",file_content.substring(1024*1024*8,1024*1024*12));
-					idb.set("content4",file_content.substring(1024*1024*12,1024*1024*16));
-					idb.set("content5",file_content.substring(1024*1024*16,1024*1024,20));
+					idb.set("content",file_content.substring(0,1024*1024*2));
+					idb.set("content2",file_content.substring(1024*1024*2,1024*1024*5));
+					idb.set("content3",file_content.substring(1024*1024*5,1024*1024*8));
+					idb.set("content4",file_content.substring(1024*1024*8,1024*1024*11));
+					idb.set("content5",file_content.substring(1024*1024*11,1024*1024*14));
+					idb.set("content6",file_content.substring(1024*1024*14,1024*1024*17));
+					idb.set("content7",file_content.substring(1024*1024*17,1024*1024*20));
 					//提交文件数据
 					idb.save().then(res => {
 						//得到图片的uuid，得到留言板数据
