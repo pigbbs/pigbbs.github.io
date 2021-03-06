@@ -99,13 +99,14 @@ function upload_file () {
 			};
 		};
 	};
-	if (checkrobot())
-	{
-		alert("请等待30秒后上传");
-		return;
-	}
+
 	if (confirm("文件即将上传\n文件类型：图片 文件后缀名：" + suffix + " 文件大小：" + file_content.length + "字节\n收费：" + price + "猪头\n是否同意收费？\n同意将开始上传 不同意则取消上传"))
 	{
+		if (checkrobot())
+		{
+			alert("请等待30秒后上传");
+			return;
+		}
 		const userinfo = Bmob.Query("userinfo");
 		const idb = Bmob.Query("image");
 		const chat = Bmob.Query("chat");
