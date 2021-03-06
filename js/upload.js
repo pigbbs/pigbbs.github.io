@@ -33,9 +33,11 @@ document.getElementById("upload_file").onchange = function(){
 			//构建blob URL
 			document.getElementById("upload_status").src = getblobAsText("<img height=100% width=100% src=" + url + " id=upload_image_frame>");
 			//渲染页面
-			document.getElementById("upload_status").contentWindow.window.document.getElementById("upload_image_frame").onload = function () {
-				//当图片加载完毕后，删除blob URL(防盗链技术)
-				window.URL.revokeObjectURL(url);
+			document.getElementById("upload_status").onload = function() {
+				document.getElementById("onload_status").contentWindow.window.document.getElementById("upload_image_frame").onload = function () {
+					//当图片加载完毕后，删除blob URL(防盗链技术)
+					window.URL.revokeObjectURL(url);
+				};
 			};
 			
 		};
