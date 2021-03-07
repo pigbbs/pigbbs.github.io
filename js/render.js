@@ -182,6 +182,8 @@ function change_char(str)
 {
 	var command = str.match(/\{{1}[a-z0-9]*\}{1}/gim);
 	//提取中所有的命令
+	if (command == null)
+		return str;
 	var result = [];
 	var i = 0;
 	while(i != command.length)
