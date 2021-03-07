@@ -1,4 +1,4 @@
-	/*
+/*
 	 * PIGBBS 留言板源码 Copyright Pig Mail fat-pig-2020@outlook.com
 	 * 我不指望你能读懂我的源代码
 	 * 重构是不可能的
@@ -94,6 +94,7 @@ function gopage(n) {
 		else var display = content.substring((n - 1) * 1024);
 		//判断内容是否超出当前页面的长度
 		display = display.replaceAll("<hr>","<input type=button value=举报 onclick=javascript:window.parent.window.report();><hr />");
+		display = change_char(display);
 				document.getElementById("bbs-content-iframe").src = getblobAsText(display);
 		render_img();
 	} else gopage(1);
@@ -122,11 +123,14 @@ function nextpage() {
 }
 function loadImage(uuid)
 {
+	//加载图片
 	var i = localStorage.getItem("cache-img-" + uuid);
 	if (i != null)
 		return i;
+	//如果在缓存中存在，则返回缓存
 	const img = Bmob.Query("image");
 	img.get(uuid).then(res => {
+		//如果不存在，则请求服务器端
 		i = res.content;
 		var j = 1;
 		while (typeof res["content"+j] != "undefined")
@@ -134,7 +138,9 @@ function loadImage(uuid)
 			i += res["content"+j];
 			j++;
 		}
+		//拼接字符串
 		localStorage.setItem("cache-img-" + uuid,i);
+		//写入缓存
 	}).catch(err => {
 		console.log(err);
 	});
@@ -144,26 +150,165 @@ function render_img(){
 		
 		var s = setInterval(function(){
 			var arr = document.getElementById("bbs-content-iframe").contentWindow.window.document.getElementsByClassName("user_upload_img");
+			//得到待操作的数组
 			if (!arr.length)
 				clearInterval(s);
 			var i = 0;
 			while (i != arr.length)
 			{	
 				var img = loadImage(arr[i].id);
+				//取得图片
 				if (typeof img != "undefined")
 				{
+					//如果返回了缓存，则加载图片
 					let blob = image_dataURLtoBlob(img);
+					//把图片从DataUrl格式转成Blob格式
 					let url = window.URL.createObjectURL(blob);
+					//构建Blob URL
 					arr[i].src = url;
 					arr[i].onload = function () {
 						window.URL.revokeObjectURL(url);
+						//当图片加载完后，删除Blob URL(防盗链技术)
 					};
 					arr[i].className = "user_upload_img_success";
+					//标记加载完的图片
 				}
 				i++;
 			}
 		},500);
 	};
 };
-
-
+function change_char(str)
+{
+	var command = str.match(/\{{1}[a-z0-9]*\}{1}/gim);
+	//提取中所有的命令
+	var result = [];
+	var i = 0;
+	while(i != command.length)
+	{
+		var ptr = command[i];
+		var string = ptr.substring(1,ptr.length-1);
+		//删去命令中的标识符
+		result[i] = parseCommand(string);
+		//解析命令
+		i++;
+	}
+	i = 0;
+	while (i != result.length)
+	{
+		str = str.replaceAll(command[i],result[i]);
+		i++;
+	}
+	return str;
+}
+function parseCommand(str)
+{
+	//命令解析器
+	if (str.indexOf(" ") == -1)
+		var main_command = str;
+	else
+		var main_command = str.split(" ")[0];
+	//得到主命令
+	var argu_middle = str.split(" ");
+	var argu = {};
+	var i = 0;
+	while (i != argu_middle.length)
+	{
+		if (argu_middle[i].indexOf("=") == -1)
+		{
+			//当参数没有默认值时，将参数的默认值设为true，并发出警告
+			argu[argu_middle[i]] = true;
+			console.warn("PigBBS Command Compiler\nWarning:The value of the parameter should be set\nCode:fffe\n%s{" + str + "}","color:red");
+		}
+		else
+			argu[argu_middle[i].split("=")[0]] = argu_middle[i].split("=")[1];
+		i++;
+	}
+	//生成参数对象
+	switch(main_command)
+	{
+		//当主命令为img/image时
+		case "img":
+			if (typeof argu.src == "undefined" && typeof argu.source == "undefined")
+			{
+				console.error("PigBBS Command Compiler\nError:The source location of the picture object is not specified\nCode:5000\n%s{" + str + "}","color:red");
+				return "";
+				//检查是否写图片的源位置
+			}
+			var res = "<img src='";
+			if (typeof argu.source != "undefined")
+				res += argu.source + "'";
+			else
+				res += argu.src + "'";
+			//在HTML标签中加上源位置
+			if (typeof argu.height != "undefined")
+				res += " height='" + argu.height + "'";
+			if (typeof argu.width != "undefined")
+				res += " width='" + argu.width + "'";
+			//如果参数中有尺寸的话，在HTML标签中加上尺寸
+			res += ">";
+			return res;
+			break;
+		case "image":
+			if (typeof argu.src == "undefined" && typeof argu.source == "undefined")
+			{
+				console.error("PigBBS Command Compiler\nError:The source location of the picture object is not specified\nCode:5000\n%s{" + str + "}","color:red");
+				return "";
+				//检查是否写图片的源位置
+			}
+			var res = "<img src='";
+			if (typeof argu.source != "undefined")
+				res += argu.source + "'";
+			else
+				res += argu.src + "'";
+			//在HTML标签中加上源位置
+			if (typeof argu.height != "undefined")
+				res += " height='" + argu.height + "'";
+			if (typeof argu.width != "undefined")
+				res += " width='" + argu.width + "'";
+			//如果参数中有尺寸的话，在HTML标签中加上尺寸
+			res += ">";
+			return res;
+			break;
+		case "link":
+			//如果主命令为link或l的话
+			if (typeof argu.url == "undefined")
+			{
+				console.error("PigBBS Command Compiler\nError:The path to which the link is pointed is not specified\nCode:5001\n%s{" + str + "}","color:red");
+				return "";
+				//如果没有指定链接指向的URL的话，报错
+			}
+			var res = "<a href='https://pigbbs.github.io/link?url=" + escape(argu.url) + "' target='_blank'>";
+			if (typeof argu.content != "undefined")
+				res += argu.content;
+			else
+				res += argu.url;
+			//如果参数中有链接显示的内容的话，显示内容，没有的话，显示URL
+			res += "</a>";
+			return res;
+			break;
+		case "l":
+			//如果主命令为link或l的话
+			if (typeof argu.url == "undefined")
+			{
+				console.error("PigBBS Command Compiler\nError:The path to which the link is pointed is not specified\nCode:5001\n%s{" + str + "}","color:red");
+				return "";
+				//如果没有指定链接指向的URL的话，报错
+			}
+			var res = "<a href='https://pigbbs.github.io/link?url=" + escape(argu.url) + "' target='_blank'>";
+			if (typeof argu.content != "undefined")
+				res += argu.content;
+			else
+				res += argu.url;
+			//如果参数中有链接显示的内容的话，显示内容，没有的话，显示URL
+			res += "</a>";
+			return res;
+			break;
+			
+		default:
+			console.error("PigBBS Command Compiler\nError:There are no matching commands\nCode:ffff\n%s{" + str + "}","color:red");
+			return "";
+		
+	}
+	return "";
+}
