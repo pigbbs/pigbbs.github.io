@@ -21,6 +21,7 @@ font-size:15px;
 搜索<input type=text maxlength=64 placeholder=Key style='width:60%' id=keyword><input type=button value=搜索 onclick=javascript:search_key();>
 <div style="font-size:20px">
 <a href=/>返回主页</a>
+<a id=to_newpage>新版页面</a>
 <br>
   Lv.<span id=bbs-level></span>
 	<div id=bbs-space></div>
@@ -41,6 +42,7 @@ font-size:15px;
 	 * 重构是不可能的
 	 * 邮箱 pigbbs@outlook.com
 	*/
+	document.querySelector("#to_newpage").href = "./#' + location.hash.substring(1);
 sessionStorage.removeItem("captcha");
 Bmob.initialize("666aff82f39ad4c7", "081126");
 	//登录数据库
