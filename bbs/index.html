@@ -22,6 +22,7 @@ font-size:15px;
 <a href=/document target=_blank>帮助 使用文档</a>
 <div style="font-size:20px">
 <a href=/>返回主页</a>
+<a id=to_oldpage>旧版页面</a>
 <br>
   Lv.<span id=bbs-level></span>
 	<div id=bbs-space></div>
@@ -47,3 +48,6 @@ font-size:15px;
 <script src=/js/transaction.js></script>
 <script src=/js/bbsmain.js></script>
 <script src=/js/upload.js></script>
+<script>
+		document.querySelector("#to_oldpage").href = "./old-bbs.html#' + location.hash.substring(1);
+</script>
