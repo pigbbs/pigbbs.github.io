@@ -10,10 +10,11 @@ if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
    location.href = "/bbs/apple-err.html";
 }//检查是否是苹果设备
 
-
+/*
 if (sessionStorage.getItem("captcha") == null)
   location.href = "/captcha#" + location.href;
 //检查是否填写过验证码
+*/
 function checklogin()
 {
    //检查是否登录
