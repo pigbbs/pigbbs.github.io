@@ -9,6 +9,7 @@ function getblobAsText(text)
 		try {
 			var blob = new Blob([text],{type:"text/html"});
 		} catch(err) {
+			alert(err);
 			window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
 			if (BlobBuilder && err.name == "TypeError")
 			{
